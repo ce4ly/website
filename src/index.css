@@ -1,0 +1,29 @@
+@import '@fontsource/ibm-plex-sans';
+@import '@fontsource/ibm-plex-serif';
+@import '@fontsource/ibm-plex-mono';
+@import 'tailwindcss';
+
+@theme {
+  --font-sans: 'IBM Plex Sans', system-ui, -apple-system, BlinkMacSystemFont,
+    'Segoe UI', sans-serif;
+  --font-serif: 'IBM Plex Serif', ui-serif, Georgia, 'Times New Roman', serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Monaco,
+    Consolas, 'Liberation Mono', 'Courier New', monospace;
+}
+
+@layer base {
+  body {
+    @apply font-sans bg-stone-100 text-stone-900 dark:bg-indigo-950 dark:text-white antialiased;
+  }
+
+  a {
+    @apply text-blue-950 dark:text-indigo-300 underline-offset-2 hover:underline;
+  }
+}
+
+@layer utilities {
+  .text-justify {
+    text-align: justify;
+    text-justify: inter-word;
+  }
+}
