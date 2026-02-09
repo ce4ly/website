@@ -1,0 +1,98 @@
+import type { ComponentType, SVGProps } from 'react'
+import {
+  AcademicCapIcon,
+  ArrowPathIcon,
+  ArrowRightIcon,
+  ArrowsRightLeftIcon,
+  Bars3Icon,
+  BoltIcon,
+  BookOpenIcon,
+  CalculatorIcon,
+  CalendarDaysIcon,
+  CheckCircleIcon,
+  ChevronDownIcon,
+  ChevronRightIcon,
+  ClockIcon,
+  EnvelopeIcon,
+  ExclamationCircleIcon,
+  ExclamationTriangleIcon,
+  FlagIcon,
+  HomeIcon,
+  InformationCircleIcon,
+  ListBulletIcon,
+  MagnifyingGlassIcon,
+  MapPinIcon,
+  MoonIcon,
+  PaperAirplaneIcon,
+  PhoneIcon,
+  PlayCircleIcon,
+  PlayIcon,
+  RssIcon,
+  ShieldExclamationIcon,
+  SignalIcon,
+  SignalSlashIcon,
+  SpeakerWaveIcon,
+  SpeakerXMarkIcon,
+  StopIcon,
+  SunIcon,
+  UserGroupIcon,
+  WrenchScrewdriverIcon,
+  XMarkIcon,
+} from '@heroicons/react/24/outline'
+
+const ICONOS = {
+  acerca: InformationCircleIcon,
+  actualizar: ArrowPathIcon,
+  alerta: ExclamationCircleIcon,
+  antenas: SignalIcon,
+  boletines: RssIcon,
+  calculadora: CalculatorIcon,
+  calendario: CalendarDaysIcon,
+  chevron: ChevronDownIcon,
+  correcto: CheckCircleIcon,
+  detener: StopIcon,
+  contacto: EnvelopeIcon,
+  convertir: ArrowsRightLeftIcon,
+  cursos: AcademicCapIcon,
+  directo: ArrowRightIcon,
+  directiva: SignalIcon,
+  emergencias: ShieldExclamationIcon,
+  enviar: PaperAirplaneIcon,
+  error: ExclamationTriangleIcon,
+  herramientas: WrenchScrewdriverIcon,
+  inicio: HomeIcon,
+  libro: BookOpenIcon,
+  lista: ListBulletIcon,
+  lupa: MagnifyingGlassIcon,
+  mapa: MapPinIcon,
+  menu: Bars3Icon,
+  mision: FlagIcon,
+  luna: MoonIcon,
+  play: PlayCircleIcon,
+  reloj: ClockIcon,
+  reproducir: PlayIcon,
+  rss: RssIcon,
+  siguiente: ChevronRightIcon,
+  silencio: SpeakerXMarkIcon,
+  senal: SignalIcon,
+  sinconexion: SignalSlashIcon,
+  sol: SunIcon,
+  telefono: PhoneIcon,
+  tormenta: BoltIcon,
+  ubicacion: MapPinIcon,
+  usuarios: UserGroupIcon,
+  volumen: SpeakerWaveIcon,
+  cerrar: XMarkIcon,
+} satisfies Record<string, ComponentType<SVGProps<SVGSVGElement>>>
+
+export type NombreIcono = keyof typeof ICONOS
+
+type IconoProps = { nombre: NombreIcono; className?: string }
+
+/** Icono de interfaz (heroicons, trazo de 24 px). Decorativo: el texto va al lado. */
+const Icono = ({ nombre, className = 'size-4 shrink-0' }: IconoProps) => {
+  const Svg = ICONOS[nombre]
+  return <Svg className={className} aria-hidden='true' />
+}
+
+export default Icono

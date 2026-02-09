@@ -1,0 +1,305 @@
+# Node: versión de .nvmrc (la lee Netlify). Lint, formato y tests antes del build: si fallan, no se publica.
+[build]
+  command = "npm run lint && npm run format:check && npm test && npm run build"
+  publish = "dist"
+
+# --- Proxies ---------------------------------------------------------------------------------
+# Datos de otro origen servidos desde el propio sitio (sin CORS y con la CSP en 'self'). Deben
+# coincidir con PROXIES (src/lib/proxies.ts); tests/netlify.test.ts lo comprueba.
+
+[[redirects]]
+  from = "/boletines.xml"
+  to = "https://feeds.soundcloud.com/users/soundcloud:users:1676930966/sounds.rss"
+  status = 200
+
+[[redirects]]
+  from = "/api/solar.xml"
+  to = "https://www.hamqsl.com/solarxml.php"
+  status = 200
+
+# Clima de las capitales del Maule y Constitución (Open-Meteo, sin clave): ver src/lib/clima.ts.
+[[redirects]]
+  from = "/api/clima.json"
+  to = "https://api.open-meteo.com/v1/forecast?latitude=-34.9828,-35.4264,-35.8467,-35.9671,-35.3333&longitude=-71.2394,-71.6554,-71.5931,-72.3225,-72.4167&current=temperature_2m,relative_humidity_2m,wind_speed_10m,weather_code,is_day&daily=temperature_2m_max,temperature_2m_min&forecast_days=1&timezone=America/Santiago"
+  status = 200
+
+# --- Redirecciones permanentes -----------------------------------------------------------------
+# URLs antiguas del feed (servidor PHP) → feed actual. Los lectores RSS actualizan la suscripción.
+
+[[redirects]]
+  from = "/feedBoletines.php"
+  to = "/boletines.xml"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/feedBoletines.xml"
+  to = "/boletines.xml"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/api/boletines.php"
+  to = "/boletines.xml"
+  status = 301
+  force = true
+
+# Rutas antiguas de herramientas → rutas actuales. Los destinos llevan barra final, que es la URL
+# que Netlify sirve para cada HTML pre-renderizado (`/calculadoras/dipolo/index.html`); así no hay
+# un segundo salto. Netlify aplica cada regla con y sin barra final en el origen.
+
+[[redirects]]
+  from = "/espectro"
+  to = "/herramientas/espectro-radioelectrico/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/alfabeto"
+  to = "/herramientas/alfabeto-fonetico/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/codigo-q"
+  to = "/herramientas/codigos-q/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/indicativos"
+  to = "/herramientas/indicativos/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/convertidor-potencia"
+  to = "/convertidor/potencia/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/convertidor-frecuencia"
+  to = "/convertidor/frecuencia/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/banda-ciudadana"
+  to = "/frecuencias/banda-ciudadana/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/canales-marinos"
+  to = "/frecuencias/marinas/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/radio-comercial"
+  to = "/frecuencias/radio-comercial/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/tv-abierta"
+  to = "/frecuencias/tv-abierta/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/emergencia"
+  to = "/frecuencias/emergencia/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/dipolo"
+  to = "/calculadoras/dipolo/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/v-invertida"
+  to = "/calculadoras/v-invertida/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/efhw"
+  to = "/calculadoras/efhw/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/vertical-cuarto-onda"
+  to = "/calculadoras/vertical-cuarto-onda/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/loop-delta"
+  to = "/calculadoras/loop-delta/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/ocfd"
+  to = "/calculadoras/ocfd/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/g5rv"
+  to = "/calculadoras/g5rv/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/loop-magnetico"
+  to = "/calculadoras/loop-magnetico/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/j-pole"
+  to = "/calculadoras/j-pole/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/slim-jim"
+  to = "/calculadoras/slim-jim/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/flowerpot"
+  to = "/calculadoras/flowerpot/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/ground-plane"
+  to = "/calculadoras/ground-plane/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/cinco-octavos"
+  to = "/calculadoras/cinco-octavos/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/colineal"
+  to = "/calculadoras/colineal/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/turnstile"
+  to = "/calculadoras/turnstile/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/yagi"
+  to = "/calculadoras/yagi/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/moxon"
+  to = "/calculadoras/moxon/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/quad"
+  to = "/calculadoras/quad/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/choque-coaxial"
+  to = "/calculadoras/choque-coaxial/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/bobina"
+  to = "/calculadoras/bobina/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/trampas"
+  to = "/calculadoras/trampas/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/linea-q"
+  to = "/calculadoras/linea-q/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/gamma-hairpin"
+  to = "/calculadoras/gamma-hairpin/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/perdida-linea"
+  to = "/calculadoras/perdida-linea/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/nvis"
+  to = "/calculadoras/nvis/"
+  status = 301
+  force = true
+
+# No hay fallback SPA: cada página está pre-renderizada y lo demás recibe /404.html con estado
+# 404, que Netlify sirve por defecto.
+
+# --- Cabeceras ---------------------------------------------------------------------------------
+# Todo se sirve desde el propio sitio. Únicas excepciones de la CSP:
+# - frame-src: el reproductor de SoundCloud en /boletines/.
+# - media-src: los streams de las radios del easter egg de la portada (src/lib/emisoras.ts).
+# - img-src: teselas de OpenStreetMap del mapa del Grid Maidenhead (src/lib/mapa.ts).
+# - connect-src: buscador de ciudades del Grid Maidenhead, Nominatim (src/lib/lugares.ts).
+# - img-src data: imágenes en línea de los SVG del navegador (p. ej. controles de formulario).
+# El HTML no lleva scripts ni estilos en línea (el tema se aplica con /tema.js); si se añade
+# alguno, o un recurso externo, hay que ajustar la CSP.
+[[headers]]
+  for = "/*"
+  [headers.values]
+    Content-Security-Policy = "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: https://tile.openstreetmap.org; font-src 'self'; connect-src 'self' https://nominatim.openstreetmap.org; frame-src https://w.soundcloud.com; media-src 'self' https://audio3.tustreaming.cl https://audio5.tustreaming.cl https://audio0.tustreaming.cl; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests"
+    X-Content-Type-Options = "nosniff"
+    X-Frame-Options = "DENY"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    # geolocation=(self): el locator Maidenhead ofrece usar la posición del dispositivo.
+    Permissions-Policy = "camera=(), microphone=(), geolocation=(self), payment=(), usb=()"
+
+# Archivos con hash en el nombre (Vite): pueden cachearse para siempre.
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# El navegador debe revisar siempre si hay un service worker nuevo.
+[[headers]]
+  for = "/sw.js"
+  [headers.values]
+    Cache-Control = "no-cache"
+
+# Netlify no conoce la extensión .webmanifest y la serviría como application/octet-stream.
+[[headers]]
+  for = "/manifest.webmanifest"
+  [headers.values]
+    Content-Type = "application/manifest+json"
