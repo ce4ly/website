@@ -1,0 +1,5 @@
+dist
+dist-ssr
+misitio
+public/data
+package-lock.json

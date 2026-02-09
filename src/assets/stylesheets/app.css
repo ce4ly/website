@@ -1,0 +1,142 @@
+/* Un archivo por peso usado: sin él, el navegador sintetiza las negritas (font-medium/semibold/bold). */
+@import '@fontsource/ibm-plex-sans/400.css';
+@import '@fontsource/ibm-plex-sans/500.css';
+@import '@fontsource/ibm-plex-sans/600.css';
+@import '@fontsource/ibm-plex-sans/700.css';
+@import '@fontsource/ibm-plex-serif/400.css';
+@import '@fontsource/ibm-plex-serif/600.css';
+@import '@fontsource/ibm-plex-serif/700.css';
+@import '@fontsource/ibm-plex-mono/400.css';
+@import '@fontsource/ibm-plex-mono/600.css';
+@import 'tailwindcss';
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --font-sans:
+    'IBM Plex Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-serif: 'IBM Plex Serif', ui-serif, Georgia, 'Times New Roman', serif;
+  --font-mono:
+    'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono',
+    'Courier New', monospace;
+}
+
+@layer base {
+  body {
+    @apply font-sans bg-stone-300 text-stone-900 dark:bg-slate-800 dark:text-white antialiased;
+  }
+
+  a {
+    @apply text-blue-950 dark:text-indigo-300 underline-offset-2 hover:underline;
+  }
+
+  /* Fondo de estática, como la nieve de un televisor sin señal: una textura de ruido que salta de
+     posición varias veces por segundo, y una banda tenue que barre la pantalla. Va detrás del
+     contenido (z-index -1) y se anima solo con `transform`, así que no repinta la página. Al ser
+     `fixed`, que mida el doble del viewport no agrega scroll. */
+  body::before,
+  body::after {
+    content: '';
+    position: fixed;
+    z-index: -1;
+    pointer-events: none;
+  }
+
+  body::before {
+    inset: -50%;
+    background-image: url('../estatica.svg');
+    opacity: 0.16;
+    animation: estatica 0.6s steps(1) infinite;
+  }
+
+  body::after {
+    inset: 0 0 auto;
+    height: 35vh;
+    background: linear-gradient(transparent, rgb(0 0 0 / 0.035), transparent);
+    animation: barrido 9s linear infinite;
+  }
+
+  :where(.dark) body::before {
+    opacity: 0.13;
+  }
+
+  :where(.dark) body::after {
+    background: linear-gradient(transparent, rgb(255 255 255 / 0.04), transparent);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    body::before,
+    body::after {
+      animation: none;
+    }
+
+    body::after {
+      display: none;
+    }
+  }
+}
+
+@keyframes estatica {
+  0% {
+    transform: translate(0, 0);
+  }
+  17% {
+    transform: translate(-7%, 4%);
+  }
+  33% {
+    transform: translate(5%, -9%);
+  }
+  50% {
+    transform: translate(-11%, -3%);
+  }
+  67% {
+    transform: translate(9%, 8%);
+  }
+  83% {
+    transform: translate(-3%, 11%);
+  }
+}
+
+/* Onda trasera del borde del footer: mide el doble de ancho y se desplaza media vuelta en bucle. */
+.onda-flujo {
+  animation: flujo 24s linear infinite;
+}
+
+@keyframes flujo {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .onda-flujo {
+    animation: none;
+  }
+}
+
+@keyframes barrido {
+  from {
+    transform: translateY(-35vh);
+  }
+  to {
+    transform: translateY(100vh);
+  }
+}
+
+@layer utilities {
+  .text-justify {
+    text-align: justify;
+    text-justify: inter-word;
+  }
+}
+
+/* Iconos de Font Awesome en línea (components/partials/Icon.tsx), sin fontawesome-svg-core: así el
+   HTML pre-renderizado sale con el tamaño correcto y no hace falta inyectar estilos con JS. */
+.svg-inline--fa {
+  box-sizing: content-box;
+  display: inline-block;
+  height: 1em;
+  overflow: visible;
+  vertical-align: -0.125em;
+  width: 1.25em;
+}
