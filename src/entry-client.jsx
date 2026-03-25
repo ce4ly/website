@@ -10,19 +10,19 @@ if (import.meta.env.DEV) {
   createRoot(rootElement).render(
     <StrictMode>
       <App />
-    </StrictMode>,
+    </StrictMode>
   )
 } else if (hasPrerenderedContent) {
   hydrateRoot(
     rootElement,
     <StrictMode>
       <App />
-    </StrictMode>,
+    </StrictMode>
   )
 } else {
   createRoot(rootElement).render(
     <StrictMode>
       <App />
-    </StrictMode>,
+    </StrictMode>
   )
 }

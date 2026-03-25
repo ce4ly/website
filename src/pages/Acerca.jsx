@@ -1,4 +1,4 @@
-function Acerca() {
+const Acerca = () => {
   return (
     <section className="space-y-6 my-16">
       <h1 className="text-3xl sm:text-4xl font-serif font-semibold tracking-tight text-stone-900 dark:text-white text-center">
@@ -10,7 +10,8 @@ function Acerca() {
           por la ley Nº 19.418, con domicilio oficial en la ciudad de Talca,
           Región del Maule. Desde su fundación, se ha consolidado como un punto
           de encuentro para entusiastas de las radiocomunicaciones, operando
-          bajo el indicativo institucional <span className="font-semibold">CE4LY</span>.
+          bajo el indicativo institucional{' '}
+          <span className="font-semibold">CE4LY</span>.
         </p>
 
         <section className="space-y-2">
@@ -32,8 +33,8 @@ function Acerca() {
             Objetivos Institucionales
           </h2>
           <p className="text-stone-700 dark:text-indigo-100 text-justify">
-            De acuerdo con sus estatutos y la gestión de su directiva actual, los
-            objetivos principales son:
+            De acuerdo con sus estatutos y la gestión de su directiva actual,
+            los objetivos principales son:
           </p>
           <ul className="list-disc space-y-2 pl-5 text-stone-700 dark:text-indigo-100">
             <li>
@@ -49,10 +50,10 @@ function Acerca() {
               garantizar una cobertura amplia y eficiente en la región.
             </li>
             <li>
-              <span className="font-semibold">Representatividad:</span>{' '}
-              Actuar como el organismo oficial que representa a sus socios en
-              todos los asuntos vinculados a los fines de la institución ante
-              las autoridades competentes.
+              <span className="font-semibold">Representatividad:</span> Actuar
+              como el organismo oficial que representa a sus socios en todos los
+              asuntos vinculados a los fines de la institución ante las
+              autoridades competentes.
             </li>
           </ul>
         </section>
@@ -67,8 +68,8 @@ function Acerca() {
           </p>
           <ul className="list-disc space-y-2 pl-5 text-stone-700 dark:text-indigo-100">
             <li>
-              <span className="font-semibold">Apoyo en Emergencias:</span>{' '}
-              Una de sus funciones estatutarias más importantes es prestar
+              <span className="font-semibold">Apoyo en Emergencias:</span> Una
+              de sus funciones estatutarias más importantes es prestar
               colaboración en radiocomunicaciones a las autoridades en casos de
               catástrofes o emergencias, utilizando para ello sus recursos
               técnicos y humanos a través del{' '}
@@ -76,9 +77,9 @@ function Acerca() {
             </li>
             <li>
               <span className="font-semibold">Promoción y Difusión:</span>{' '}
-              Realizar ejercicios radiales, boletines informativos y
-              actividades como el “Jamboree en el Aire” (JOTA-JOTI) para
-              acercar la radioafición a niños y jóvenes Scouts.
+              Realizar ejercicios radiales, boletines informativos y actividades
+              como el “Jamboree en el Aire” (JOTA-JOTI) para acercar la
+              radioafición a niños y jóvenes Scouts.
             </li>
             <li>
               <span className="font-semibold">Vinculación Comunitaria:</span>{' '}
@@ -99,4 +100,3 @@ function Acerca() {
 }
 
 export default Acerca
-

@@ -11,7 +11,7 @@ const PRERENDER_PATHS = [
   '/acerca',
   '/contacto',
   '/terminos',
-  '/privacidad',
+  '/privacidad'
 ]
 
 const template = readFileSync(join(distDir, 'index.html'), 'utf-8')

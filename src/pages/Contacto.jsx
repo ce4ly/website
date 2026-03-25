@@ -1,4 +1,4 @@
-function Contacto() {
+const Contacto = () => {
   return (
     <section className="space-y-4">
       <h1 className="text-3xl sm:text-4xl font-serif font-semibold tracking-tight text-stone-900 dark:text-white">
@@ -18,4 +18,3 @@ function Contacto() {
 }
 
 export default Contacto
-

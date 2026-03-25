@@ -3,7 +3,12 @@
   <head>
     <meta charset="UTF-8" />
     <script>
-      (function(){var t=localStorage.getItem('theme');if(t==='dark')document.documentElement.classList.add('dark');else if(t==='light')document.documentElement.classList.remove('dark');})();
+      ;(function () {
+        var t = localStorage.getItem('theme')
+        if (t === 'dark') document.documentElement.classList.add('dark')
+        else if (t === 'light')
+          document.documentElement.classList.remove('dark')
+      })()
     </script>
     <link rel="icon" type="image/png" href="/logo.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />

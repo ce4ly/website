@@ -1,23 +1,20 @@
-import {
-  BrowserRouter,
-  MemoryRouter,
-  Routes,
-  Route,
-} from 'react-router-dom'
+import { BrowserRouter, MemoryRouter, Routes, Route } from 'react-router-dom'
 import Header from './components/Header.jsx'
 import Footer from './components/Footer.jsx'
 import Inicio from './pages/Inicio.jsx'
 import Acerca from './pages/Acerca.jsx'
 import Contacto from './pages/Contacto.jsx'
+import Directorio from './pages/Directorio.jsx'
 import Terminos from './pages/Terminos.jsx'
 import PoliticaPrivacidad from './pages/PoliticaPrivacidad.jsx'
 
 export const PRERENDER_PATHS = [
   '/',
   '/acerca',
+  '/directorio',
   '/contacto',
   '/terminos',
-  '/privacidad',
+  '/privacidad'
 ]
 
 export const AppLayout = () => {
@@ -29,6 +26,7 @@ export const AppLayout = () => {
           <Routes>
             <Route path="/" element={<Inicio />} />
             <Route path="/acerca" element={<Acerca />} />
+            <Route path="/directorio" element={<Directorio />} />
             <Route path="/contacto" element={<Contacto />} />
             <Route path="/terminos" element={<Terminos />} />
             <Route path="/privacidad" element={<PoliticaPrivacidad />} />

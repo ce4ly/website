@@ -5,6 +5,7 @@ import ThemeSwitch from './ThemeSwitch.jsx'
 const navLinks = [
   { to: '/', label: 'Inicio' },
   { to: '/acerca', label: 'Acerca' },
+  { to: '/directorio', label: 'Directorio' }
 ]
 
 const Header = () => {
@@ -39,7 +40,7 @@ const Header = () => {
                   'font-medium',
                   isActive
                     ? 'underline underline-offset-4'
-                    : 'hover:underline underline-offset-4',
+                    : 'hover:underline underline-offset-4'
                 ].join(' ')
               }
             >
@@ -53,7 +54,7 @@ const Header = () => {
           <button
             type="button"
             className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-stone-300 bg-stone-100 text-stone-900 transition-colors hover:border-blue-950 hover:text-blue-950 dark:border-indigo-800 dark:bg-indigo-900 dark:text-white dark:hover:border-indigo-300 dark:hover:text-indigo-300"
-            onClick={() => setOpen((prev) => !prev)}
+            onClick={() => setOpen(prev => !prev)}
             aria-label="Abrir menú de navegación"
           >
             <span className="sr-only">Abrir menú</span>
@@ -77,7 +78,7 @@ const Header = () => {
                     'rounded-md px-3 py-2 text-amber-900 transition-colors dark:text-indigo-200',
                     isActive
                       ? 'bg-stone-100 dark:bg-indigo-900/70 underline underline-offset-4'
-                      : 'hover:bg-stone-100 dark:hover:bg-indigo-900/70 hover:underline underline-offset-4',
+                      : 'hover:bg-stone-100 dark:hover:bg-indigo-900/70 hover:underline underline-offset-4'
                   ].join(' ')
                 }
               >
