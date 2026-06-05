@@ -9,6 +9,7 @@ const serverPath = join(distDir, 'server', 'entry-server.js')
 const PRERENDER_PATHS = [
   '/',
   '/acerca',
+  '/boletines',
   '/contacto',
   '/terminos',
   '/privacidad'

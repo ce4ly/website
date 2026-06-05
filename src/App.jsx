@@ -7,11 +7,13 @@ import Contacto from './pages/Contacto.jsx'
 import Directorio from './pages/Directorio.jsx'
 import Terminos from './pages/Terminos.jsx'
 import PoliticaPrivacidad from './pages/PoliticaPrivacidad.jsx'
+import Boletines from './pages/Boletines.jsx'
 
 export const PRERENDER_PATHS = [
   '/',
   '/acerca',
   '/directorio',
+  '/boletines',
   '/contacto',
   '/terminos',
   '/privacidad'
@@ -27,6 +29,7 @@ export const AppLayout = () => {
             <Route path="/" element={<Inicio />} />
             <Route path="/acerca" element={<Acerca />} />
             <Route path="/directorio" element={<Directorio />} />
+            <Route path="/boletines" element={<Boletines />} />
             <Route path="/contacto" element={<Contacto />} />
             <Route path="/terminos" element={<Terminos />} />
             <Route path="/privacidad" element={<PoliticaPrivacidad />} />

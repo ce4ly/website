@@ -1,19 +1,19 @@
 import js from '@eslint/js'
-import { FlatCompat } from '@eslint/eslintrc'
-import path from 'node:path'
-import { fileURLToPath } from 'node:url'
 import globals from 'globals'
 import { defineConfig, globalIgnores } from 'eslint/config'
 import eslintPluginPrettierRecommended from 'eslint-plugin-prettier/recommended'
 
-const __filename = fileURLToPath(import.meta.url)
-const __dirname = path.dirname(__filename)
-const compat = new FlatCompat({ baseDirectory: __dirname })
-
 export default defineConfig([
   globalIgnores(['dist']),
   {
+    files: ['server/**/*.js', 'scripts/**/*.js', 'vite.config.js'],
+    languageOptions: {
+      globals: globals.node
+    }
+  },
+  {
     files: ['**/*.{js,jsx}'],
+    ignores: ['server/**', 'scripts/**', 'vite.config.js'],
     extends: [js.configs.recommended],
     languageOptions: {
       ecmaVersion: 2020,
@@ -34,6 +34,5 @@ export default defineConfig([
       'dot-notation': 'error'
     }
   },
-  ...compat.extends('standard'),
   eslintPluginPrettierRecommended
 ])

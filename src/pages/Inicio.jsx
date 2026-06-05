@@ -1,4 +1,8 @@
-import { faFacebook, faInstagram } from '@fortawesome/free-brands-svg-icons'
+import {
+  faFacebook,
+  faInstagram,
+  faSoundcloud
+} from '@fortawesome/free-brands-svg-icons'
 import { faSatelliteDish } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
@@ -6,7 +10,7 @@ const Inicio = () => {
   return (
     <section className="space-y-4 items-center">
       <img
-        src="/hero.jpg"
+        src="/banner.jpg"
         className="rounded-b-lg border border-1 border-t-0 border-stone-400/60 shadow shadow-lg shadow-stone-600"
       />
       <div className="flex flex-col flex-nowrap items-center gap-8 my-12">
@@ -14,37 +18,49 @@ const Inicio = () => {
           src="/logo-frontpage.png"
           className="size-64 rounded-full shadow shadow-lg shadow-stone-600"
         />
-        <div className="flex flex-row flex-nowrap items-center justify-center place-content-between gap-16">
-          <ul className="flex flex-row flex-nowrap gap-4">
-            <li>
-              <a
-                href="https://www.facebook.com/Ce4rly"
-                target="_blank"
-                title="Facebook"
-              >
-                <FontAwesomeIcon icon={faFacebook} size="3x" />
-              </a>
-            </li>
-            <li>
-              <a
-                href="https://www.instagram.com/radioclublircay"
-                target="_blank"
-                title="Instagram"
-              >
-                <FontAwesomeIcon icon={faInstagram} size="3x" />
-              </a>
-            </li>
-            <li>
-              <a
-                href="https://www.qrz.com/db/ce4ly"
-                target="_blank"
-                title="QRZ"
-              >
-                <FontAwesomeIcon icon={faSatelliteDish} size="3x" />
-              </a>
-            </li>
-          </ul>
-          <div className="bg-blue-950 p-4 w-full text-white shadow shadow-lg shadow-stone-600">
+        <div className="grid w-full grid-cols-1 items-stretch gap-8 md:grid-cols-2 md:gap-8">
+          <div className="flex items-center justify-center">
+            <ul className="flex flex-row flex-nowrap gap-4">
+              <li>
+                <a
+                  href="https://www.facebook.com/Ce4rly"
+                  target="_blank"
+                  title="Facebook"
+                >
+                  <FontAwesomeIcon icon={faFacebook} size="3x" />
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://www.instagram.com/radioclublircay"
+                  target="_blank"
+                  title="Instagram"
+                >
+                  <FontAwesomeIcon icon={faInstagram} size="3x" />
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://www.qrz.com/db/ce4ly"
+                  target="_blank"
+                  title="QRZ"
+                >
+                  <FontAwesomeIcon icon={faSatelliteDish} size="3x" />
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://soundcloud.com/radio-club-lircay"
+                  target="_blank"
+                  rel="noreferrer noopener"
+                  title="SoundCloud"
+                >
+                  <FontAwesomeIcon icon={faSoundcloud} size="3x" />
+                </a>
+              </li>
+            </ul>
+          </div>
+          <div className="flex w-full flex-col items-center justify-center bg-blue-950 p-4 text-center text-white shadow shadow-lg shadow-stone-600">
             <h2 className="font-black font-serif mb-4">
               Nuestros Repetidores:
             </h2>

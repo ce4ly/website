@@ -8,6 +8,8 @@ pnpm-debug.log*
 lerna-debug.log*
 
 node_modules
+.env
+public/api/mailgun.local.php
 dist
 dist-ssr
 *.local
