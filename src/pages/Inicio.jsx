@@ -18,55 +18,51 @@ const Inicio = () => {
           src="/logo-frontpage.png"
           className="size-64 rounded-full shadow shadow-lg shadow-stone-600"
         />
-        <div className="grid w-full grid-cols-1 items-stretch gap-8 md:grid-cols-2 md:gap-8">
-          <div className="flex items-center justify-center">
-            <ul className="flex flex-row flex-nowrap gap-4">
-              <li>
-                <a
-                  href="https://www.facebook.com/Ce4rly"
-                  target="_blank"
-                  title="Facebook"
-                >
-                  <FontAwesomeIcon icon={faFacebook} size="3x" />
-                </a>
-              </li>
-              <li>
-                <a
-                  href="https://www.instagram.com/radioclublircay"
-                  target="_blank"
-                  title="Instagram"
-                >
-                  <FontAwesomeIcon icon={faInstagram} size="3x" />
-                </a>
-              </li>
-              <li>
-                <a
-                  href="https://www.qrz.com/db/ce4ly"
-                  target="_blank"
-                  title="QRZ"
-                >
-                  <FontAwesomeIcon icon={faSatelliteDish} size="3x" />
-                </a>
-              </li>
-              <li>
-                <a
-                  href="https://soundcloud.com/radio-club-lircay"
-                  target="_blank"
-                  rel="noreferrer noopener"
-                  title="SoundCloud"
-                >
-                  <FontAwesomeIcon icon={faSoundcloud} size="3x" />
-                </a>
-              </li>
-            </ul>
-          </div>
-          <div className="flex w-full flex-col items-center justify-center bg-blue-950 p-4 text-center text-white shadow shadow-lg shadow-stone-600">
-            <h2 className="font-black font-serif mb-4">
-              Nuestros Repetidores:
-            </h2>
-            <p className="font-mono">146,380 MHz - t67.0 - +0.600</p>
-            <p className="font-mono">433,100 MHz - t67.0 - +5.000</p>
-          </div>
+        <ul className="flex flex-row flex-nowrap justify-center gap-4">
+          <li>
+            <a
+              href="https://www.facebook.com/Ce4rly"
+              target="_blank"
+              title="Facebook"
+            >
+              <FontAwesomeIcon icon={faFacebook} size="3x" />
+            </a>
+          </li>
+          <li>
+            <a
+              href="https://www.instagram.com/radioclublircay"
+              target="_blank"
+              title="Instagram"
+            >
+              <FontAwesomeIcon icon={faInstagram} size="3x" />
+            </a>
+          </li>
+          <li>
+            <a
+              href="https://www.qrz.com/db/ce4ly"
+              target="_blank"
+              title="QRZ"
+            >
+              <FontAwesomeIcon icon={faSatelliteDish} size="3x" />
+            </a>
+          </li>
+          <li>
+            <a
+              href="https://soundcloud.com/radio-club-lircay"
+              target="_blank"
+              rel="noreferrer noopener"
+              title="SoundCloud"
+            >
+              <FontAwesomeIcon icon={faSoundcloud} size="3x" />
+            </a>
+          </li>
+        </ul>
+        <div className="hidden w-full flex-col items-center justify-center bg-blue-950 p-4 text-center text-white shadow shadow-lg shadow-stone-600">
+          <h2 className="font-black font-serif mb-4">
+            Nuestros Repetidores:
+          </h2>
+          <p className="font-mono">146,380 MHz - t67.0 - +0.600</p>
+          <p className="font-mono">433,100 MHz - t67.0 - +5.000</p>
         </div>
         <p className="font-serif">Sitio Web en constante actualización.</p>
       </div>

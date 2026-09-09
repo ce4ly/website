@@ -4,7 +4,7 @@ import Footer from './components/Footer.jsx'
 import Inicio from './pages/Inicio.jsx'
 import Acerca from './pages/Acerca.jsx'
 import Contacto from './pages/Contacto.jsx'
-import Directorio from './pages/Directorio.jsx'
+import ExDirectorio from './pages/ExDirectorio.jsx'
 import Terminos from './pages/Terminos.jsx'
 import PoliticaPrivacidad from './pages/PoliticaPrivacidad.jsx'
 import Boletines from './pages/Boletines.jsx'
@@ -12,7 +12,7 @@ import Boletines from './pages/Boletines.jsx'
 export const PRERENDER_PATHS = [
   '/',
   '/acerca',
-  '/directorio',
+  '/ExDirectorio',
   '/boletines',
   '/contacto',
   '/terminos',
@@ -28,7 +28,7 @@ export const AppLayout = () => {
           <Routes>
             <Route path="/" element={<Inicio />} />
             <Route path="/acerca" element={<Acerca />} />
-            <Route path="/directorio" element={<Directorio />} />
+            <Route path="/ExDirectorio" element={<ExDirectorio />} />
             <Route path="/boletines" element={<Boletines />} />
             <Route path="/contacto" element={<Contacto />} />
             <Route path="/terminos" element={<Terminos />} />

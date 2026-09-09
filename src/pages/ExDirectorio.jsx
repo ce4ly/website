@@ -1,12 +1,5 @@
 const DIRECTORIO = [
   {
-    nombre: 'Patricio Soto Leiva',
-    indicativo: 'CE4GM',
-    puesto: 'Presidente',
-    foto: '/ce4gm.jpg',
-    qrz: 'https://www.qrz.com/db/CE4GM'
-  },
-  {
     nombre: 'Luís Roco Vásquez',
     indicativo: 'CA4LKN',
     puesto: 'Secretario',
@@ -43,7 +36,7 @@ const DIRECTORIO = [
   }
 ]
 
-const Directorio = () => {
+const ExDirectorio = () => {
   return (
     <section className="my-16 space-y-8">
       <header className="space-y-3 text-center">
@@ -91,4 +84,4 @@ const Directorio = () => {
   )
 }
 
-export default Directorio
+export default ExDirectorio

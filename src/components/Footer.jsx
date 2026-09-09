@@ -12,7 +12,7 @@ const Footer = () => {
               href="https://www.qrz.com/db/CA4NFS"
               className="text-blue-700 transition-colors hover:text-blue-950 dark:text-indigo-300 dark:hover:text-indigo-100"
             >
-              CA4NFS
+              CA5NFS
             </a>
             .
           </span>

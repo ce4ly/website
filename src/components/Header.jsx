@@ -5,7 +5,6 @@ import ThemeSwitch from './ThemeSwitch.jsx'
 const navLinks = [
   { to: '/', label: 'Inicio' },
   { to: '/acerca', label: 'Acerca' },
-  { to: '/directorio', label: 'Directorio' },
   { to: '/boletines', label: 'Boletines' }
 ]
 
