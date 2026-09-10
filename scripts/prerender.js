@@ -16,6 +16,7 @@ const PRERENDER_PATHS = [
   '/terminos',
   '/privacidad',
   '/herramientas',
+  '/ca5nfs',
   ...HERRAMIENTA_LINKS.map(link => link.to)
 ]
 

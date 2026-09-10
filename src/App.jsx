@@ -53,6 +53,7 @@ import TvAbierta from './pages/TvAbierta.jsx'
 import Emergencia from './pages/Emergencia.jsx'
 import BuscadorLicencias from './pages/BuscadorLicencias.jsx'
 import TonosCtcssDcs from './pages/TonosCtcssDcs.jsx'
+import Ca5nfs from './pages/Ca5nfs.jsx'
 import { HERRAMIENTA_LINKS } from './lib/herramientas.js'
 import { REDIRECCIONES } from './lib/redirecciones.js'
 
@@ -65,6 +66,7 @@ export const PRERENDER_PATHS = [
   '/terminos',
   '/privacidad',
   '/herramientas',
+  '/ca5nfs',
   ...HERRAMIENTA_LINKS.map(link => link.to)
 ]
 
@@ -166,6 +168,7 @@ export const AppLayout = () => {
             />
             <Route path="/frecuencias/tv-abierta" element={<TvAbierta />} />
             <Route path="/frecuencias/emergencia" element={<Emergencia />} />
+            <Route path="/ca5nfs" element={<Ca5nfs />} />
             {REDIRECCIONES.map(({ from, to }) => (
               <Route
                 key={from}

@@ -9,12 +9,18 @@ const Footer = () => {
           <span>
             Desarrollado por{' '}
             <a
+              href="https://www.seadragon.cl/"
+              className="text-blue-700 transition-colors hover:text-blue-950 dark:text-indigo-300 dark:hover:text-indigo-100"
+            >
+              Sea Dragon
+            </a>{' '}
+            /{' '}
+            <a
               href="https://www.qrz.com/db/CA4NFS"
               className="text-blue-700 transition-colors hover:text-blue-950 dark:text-indigo-300 dark:hover:text-indigo-100"
             >
               CA5NFS
             </a>
-            .
           </span>
         </div>
       </div>
