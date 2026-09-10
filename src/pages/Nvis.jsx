@@ -262,7 +262,9 @@ const Nvis = () => {
           />
           <Fila etiqueta="Régimen" valor={regimen(frac)} resaltar />
           <Fila
-            etiqueta={<Cota letra="Hn">Altura NVIS de referencia (0,15 λ)</Cota>}
+            etiqueta={
+              <Cota letra="Hn">Altura NVIS de referencia (0,15 λ)</Cota>
+            }
             valor={formatearLongitud(hNvis)}
           />
           <Fila

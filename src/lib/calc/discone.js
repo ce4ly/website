@@ -21,7 +21,8 @@ export const discone = fMinMhz => {
   const diamBocaNominal = 2 * largoInclNominal * Math.sin(semiAnguloRad)
   const diamDiscoNominal = 0.7 * diamBocaNominal
   const diamConoSupNominal = 0.017 * lambda
-  const separacionNominal = 0.3 * diamConoSupNominal
+  // Un quinto del diámetro superior del cono; queda dentro del rango 0,002–0,005 λ.
+  const separacionNominal = 0.2 * diamConoSupNominal
 
   return {
     lambda,

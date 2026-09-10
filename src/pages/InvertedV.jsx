@@ -315,7 +315,9 @@ const VInvertida = () => {
         </Formula>
         <Nota>
           A 180° coincide con el dipolo plano (VF 0,95). A 90° el alambre sale
-          unos 4 % más largo. Si h queda bajo 2 m, suba H o abra θ.
+          unos 4 % más largo. Es la corrección que usa el radio club y que ha
+          dado buen resultado en instalaciones reales. Si h queda bajo 2 m, suba
+          H o abra θ.
         </Nota>
       </Articulo>
 

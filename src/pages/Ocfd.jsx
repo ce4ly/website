@@ -227,9 +227,10 @@ const Ocfd = () => {
           <p>C = (p/100) × T &nbsp;&nbsp; L = T − C</p>
         </Formula>
         <Nota>
-          33 % con 4:1 cubre de forma típica 40/20/15/10 m si el largo es de 40
-          m. Un choque 1:1 en el coaxial, a unos 0,05–0,1 λ de la caja del
-          balun, evita que la malla irradie.
+          El OCFD clásico de 80 m (unos 41 m de largo, entrando 3,5 MHz) al 33 %
+          con balún 4:1 cubre de forma típica 80/40/20/10 m. Un choque 1:1 en el
+          coaxial, a unos 0,05–0,1 λ de la caja del balun, evita que la malla
+          irradie.
         </Nota>
       </Articulo>
 

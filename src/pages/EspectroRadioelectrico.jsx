@@ -537,12 +537,11 @@ const SubtablaSegmentos = ({ segmentos, unidad, decimales }) => (
               {formatearRango(seg.min, seg.max, unidad, decimales)}
             </td>
             {MODOS.map(modo => (
-              <CeldaPermiso
-                key={modo}
-                permitido={seg.modos.includes(modo)}
-              />
+              <CeldaPermiso key={modo} permitido={seg.modos.includes(modo)} />
             ))}
-            <td className={`${tdClass} py-2 text-stone-500 dark:text-indigo-300/80`}>
+            <td
+              className={`${tdClass} py-2 text-stone-500 dark:text-indigo-300/80`}
+            >
               {seg.nota || '—'}
             </td>
           </tr>

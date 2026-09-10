@@ -79,6 +79,28 @@ const INVERSO = Object.fromEntries(
   Object.entries(MORSE).map(([k, v]) => [v, k])
 )
 
+/** Prosignos de tráfico, con su significado en operación amateur. */
+export const PROSIGNOS = [
+  {
+    simbolo: 'AR',
+    significado:
+      'Fin del mensaje (signo +); el corresponsal aún debe responder.'
+  },
+  {
+    simbolo: 'SK',
+    significado: 'Fin del contacto (también VA); última transmisión del QSO.'
+  },
+  {
+    simbolo: 'BT',
+    significado: 'Separación de párrafo (signo =); pausa dentro de un mensaje.'
+  },
+  {
+    simbolo: 'KN',
+    significado:
+      'Adelante, solo la estación llamada (a diferencia de K, abierto a todos).'
+  }
+]
+
 export const TABLA_MORSE = [
   ...Object.entries(MORSE)
     .filter(([k]) => k.length === 1 && /[A-ZÑ]/.test(k))
@@ -89,10 +111,11 @@ export const TABLA_MORSE = [
   ...Object.entries(MORSE)
     .filter(([k]) => k.length === 1 && !/[A-ZÑ0-9]/.test(k))
     .map(([simbolo, codigo]) => ({ grupo: 'signos', simbolo, codigo })),
-  ...['AR', 'SK', 'BT', 'KN'].map(simbolo => ({
+  ...PROSIGNOS.map(({ simbolo, significado }) => ({
     grupo: 'prosignos',
     simbolo,
-    codigo: MORSE[simbolo]
+    codigo: MORSE[simbolo],
+    significado
   }))
 ]
 

@@ -11,6 +11,7 @@ const labelClass =
   'block text-sm font-medium text-stone-800 dark:text-indigo-100'
 
 const formatearNumero = (valor, decimales = 1) => {
+  if (valor === null || valor === undefined || Number.isNaN(valor)) return '—'
   return valor.toLocaleString('es-CL', {
     minimumFractionDigits: decimales,
     maximumFractionDigits: decimales
@@ -23,6 +24,7 @@ const redondear = (valor, decimales) => {
 }
 
 const formatearLongitudCm = cm => {
+  if (cm === null || cm === undefined || Number.isNaN(cm)) return '—'
   if (cm >= 300) {
     return `${formatearNumero(cm / 100, 2)} m`
   }
@@ -308,8 +310,8 @@ const Dipolo = () => {
             Se aplica un factor de velocidad de 0,95 para compensar el efecto
             del cable y las condiciones reales de instalación. T es la longitud
             de punta a punta: de ahí se resta s (2 cm en VHF, 5 cm en HF) y el
-            resto se parte en dos brazos L. Recorte al final con un analizador
-            o medidor SWR.
+            resto se parte en dos brazos L. Recorte al final con un analizador o
+            medidor SWR.
           </p>
         </article>
 
@@ -330,7 +332,13 @@ const Dipolo = () => {
           </div>
         </div>
 
-        {esValida && (
+        {esValida && brazoCm === null && (
+          <p className="text-center text-sm text-stone-500 dark:text-indigo-300/80">
+            Frecuencia fuera del rango útil de esta calculadora.
+          </p>
+        )}
+
+        {esValida && brazoCm !== null && (
           <div className="rounded-xl border border-stone-300/70 bg-white p-6 shadow-sm dark:border-indigo-900 dark:bg-indigo-950/40">
             <h2 className="mb-4 text-lg font-serif font-semibold text-stone-900 dark:text-white">
               Dimensiones calculadas

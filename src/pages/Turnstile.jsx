@@ -223,7 +223,7 @@ const Turnstile = () => {
     >
       <Articulo titulo="Polarización circular">
         <p className="text-justify">
-          El turnstile cruza dos dipolos a 90° y los desfasá 90° con un tramo de
+          El turnstile cruza dos dipolos a 90° y los desfasa 90° con un tramo de
           coaxial de cuarto de onda. El eggbeater hace lo mismo con dos loops de
           onda completa, más robusto y con buen cielo hacia el cénit: ideal para
           LEO en 2 m y 70 cm.

@@ -47,8 +47,8 @@ const Indicativos = () => {
         </h1>
         <p className="mx-auto max-w-3xl text-sm text-stone-700 sm:text-base dark:text-indigo-100">
           Prefijo con el que se reconoce un país en el aire y las series de
-          letras que usan sus estaciones. En Chile el indicativo habitual es
-          CE; las clases son CD, CA, CE y XQ.
+          letras que usan sus estaciones. En Chile el indicativo habitual es CE;
+          las clases son CD, CA, CE y XQ.
         </p>
       </header>
 
@@ -81,9 +81,7 @@ const Indicativos = () => {
                 <tr
                   key={`${p.iso}-${p.indicativo}`}
                   className={`transition-colors hover:bg-stone-50 dark:hover:bg-indigo-950/30 ${
-                    p.iso === 'CL'
-                      ? 'bg-blue-50/70 dark:bg-indigo-900/30'
-                      : ''
+                    p.iso === 'CL' ? 'bg-blue-50/70 dark:bg-indigo-900/30' : ''
                   }`}
                 >
                   <td className={`${tdClass} whitespace-nowrap`}>

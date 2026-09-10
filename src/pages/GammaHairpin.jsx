@@ -173,9 +173,14 @@ const GammaHairpin = () => {
   const ok = frecuenciaValida(mhz) && r > 0 && r < 50
   const lambda = ok ? longitudOnda(mhz) : null
   const gammaLargo = ok ? 0.05 * lambda : null
-  const xl = ok ? r * Math.sqrt(50 / r - 1) : null
-  const lUh = ok ? xl / (2 * Math.PI * mhz) : null
-  const cPf = ok ? 1e6 / (2 * Math.PI * mhz * xl) : null
+  const qMatch = ok ? Math.sqrt(50 / r - 1) : null
+  // Reactancia serie que debe presentar el excitado (acortándolo) y que
+  // cancela el condensador del gamma: Xs = Ra·√(50/Ra − 1) = √(Ra(50 − Ra)).
+  const xSerie = ok ? r * qMatch : null
+  // Reactancia inductiva en paralelo que aporta el hairpin: Xp = 50 / √(50/Ra − 1).
+  const xHairpin = ok ? 50 / qMatch : null
+  const lUh = ok ? xHairpin / (2 * Math.PI * mhz) : null
+  const cPf = ok ? 1e6 / (2 * Math.PI * mhz * xSerie) : null
   const hairpinM = ok ? 0.03 * lambda : null
 
   return (
@@ -195,7 +200,8 @@ const GammaHairpin = () => {
         <GammaHairpinDiagrama />
 
         <Formula>
-          <p>XL = Ra √(50/Ra − 1)</p>
+          <p>Xserie = Ra √(50/Ra − 1) &nbsp; (acortar el excitado)</p>
+          <p>Xhairpin = 50 / √(50/Ra − 1)</p>
           <p>G ≈ 0,05 λ &nbsp; U ≈ 0,03 λ de varilla</p>
         </Formula>
         <Nota>
@@ -237,12 +243,16 @@ const GammaHairpin = () => {
             valor={formatearLongitud(gammaLargo)}
           />
           <Fila
+            etiqueta="Reactancia serie a cancelar (acortar el excitado)"
+            valor={`${formatearNumero(xSerie, 1)} Ω`}
+          />
+          <Fila
             etiqueta={<Cota letra="C">Capacitor de partida del gamma</Cota>}
             valor={`${formatearNumero(cPf, 1)} pF`}
           />
           <Fila
             etiqueta="XL del hairpin"
-            valor={`${formatearNumero(xl, 1)} Ω`}
+            valor={`${formatearNumero(xHairpin, 1)} Ω`}
           />
           <Fila
             etiqueta="L del hairpin"

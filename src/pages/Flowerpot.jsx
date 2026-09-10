@@ -251,7 +251,9 @@ const Flowerpot = () => {
     elementoA !== null && elementoB !== null
       ? (redondear(elementoA * 100, 1) + redondear(elementoB * 100, 1)) / 100
       : null
-  const choqueC = esValida ? (FACTOR_COAX * 75) / frecuenciaMhz : null
+  // Bobina de choque de VK2ZOI: no es un λ/4 resonante sino ~8 vueltas del
+  // propio coaxial en 2 m. Aproximado como λ/2 eléctrica (VF 0,66).
+  const choqueC = esValida ? (FACTOR_COAX * 150) / frecuenciaMhz : null
   const lambda = esValida ? 300 / frecuenciaMhz : null
 
   return (
@@ -290,18 +292,18 @@ const Flowerpot = () => {
             habitual en 2 m y 70 cm. Las fórmulas prácticas de construcción son:
           </p>
           <div className="space-y-2 rounded-lg bg-stone-50 px-4 py-3 text-center font-mono text-stone-900 dark:bg-indigo-950/60 dark:text-indigo-100">
-            <p>A (m) ≈ 71 / f (MHz)</p>
-            <p>B (m) ≈ 71 / f (MHz)</p>
-            <p>T (m) ≈ 142,5 / f (MHz)</p>
-            <p>C (m) ≈ 50 / f (MHz)</p>
+            <p>A (m) ≈ 71 / f (MHz) &nbsp; B (m) ≈ 71 / f (MHz)</p>
+            <p>T = A + B ≈ 142,5 / f (MHz)</p>
+            <p>C (m) ≈ 99 / f (MHz) &nbsp; (coaxial a devanar)</p>
           </div>
           <p className="text-justify text-xs text-stone-500 dark:text-indigo-300/80">
             Se aplica un factor de velocidad de 0,95 a los elementos radiadores.
             El choque usa 0,66, típico del dieléctrico del RG-58: es la longitud
-            de coaxial a enrollar, no la altura de la bobina. En 2 m, VK2ZOI
-            sugiere unas 8 a 9 vueltas sobre conduit de 25 mm, resonando un 5–6
-            % bajo la frecuencia de trabajo. Dentro de PVC las medidas salen un
-            poco más cortas; deje margen y ajuste con analizador o medidor SWR.
+            de coaxial a enrollar, no la altura de la bobina. En 2 m equivale a
+            unas 8 a 9 vueltas sobre conduit de 25 mm, con la bobina resonando
+            un 5–6 % bajo la frecuencia de trabajo. Dentro de PVC las medidas
+            salen un poco más cortas; deje margen y ajuste con analizador o
+            medidor SWR.
           </p>
         </article>
 

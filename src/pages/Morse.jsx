@@ -84,30 +84,43 @@ const Morse = () => {
         ]}
       />
       {q.tab === 'tabla' &&
-        Object.entries(grupos).map(([grupo, filas]) => (
-          <Articulo key={grupo} titulo={grupo}>
-            <div className="overflow-x-auto">
-              <table className="w-full text-sm">
-                <thead>
-                  <tr>
-                    <th className={thClass}>Símbolo</th>
-                    <th className={thClass}>Morse</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {filas.map(f => (
-                    <tr key={`${grupo}-${f.simbolo}`}>
-                      <td className={`${tdClass} font-mono`}>{f.simbolo}</td>
-                      <td className={`${tdClass} font-mono tracking-widest`}>
-                        {f.codigo}
-                      </td>
+        Object.entries(grupos).map(([grupo, filas]) => {
+          const conSignificado = filas.some(f => f.significado)
+          return (
+            <Articulo key={grupo} titulo={grupo}>
+              <div className="overflow-x-auto">
+                <table className="w-full text-sm">
+                  <thead>
+                    <tr>
+                      <th className={thClass}>Símbolo</th>
+                      <th className={thClass}>Morse</th>
+                      {conSignificado && (
+                        <th className={thClass}>Significado</th>
+                      )}
                     </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </Articulo>
-        ))}
+                  </thead>
+                  <tbody>
+                    {filas.map(f => (
+                      <tr key={`${grupo}-${f.simbolo}`}>
+                        <td
+                          className={`${tdClass} font-mono font-bold text-stone-900 dark:text-white`}
+                        >
+                          {f.simbolo}
+                        </td>
+                        <td className={`${tdClass} font-mono tracking-widest`}>
+                          {f.codigo}
+                        </td>
+                        {conSignificado && (
+                          <td className={tdClass}>{f.significado || '—'}</td>
+                        )}
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </Articulo>
+          )
+        })}
       {q.tab === 'traductor' && (
         <Campo>
           <div>

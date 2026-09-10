@@ -229,14 +229,19 @@ const CincoOctavosDiagrama = () => {
   )
 }
 
+/** Reactancia capacitiva aproximada en la base de un radiador de ~5/8 λ.
+ *  Depende del grosor del látigo (rango típico 150–250 Ω); 200 Ω es un punto
+ *  de partida razonable que la bobina de base debe compensar. */
+const XL_BOBINA_BASE = 200
+
 const CincoOctavos = () => {
   const [frecuencia, setFrecuencia] = useState('')
-  const [diametro, setDiametro] = useState('20')
+  const [diametro, setDiametro] = useState('12')
   const mhz = parseNumero(frecuencia)
   const d = parseNumero(diametro)
   const ok = frecuenciaValida(mhz) && d > 0
   const whip = ok ? (0.625 * 300 * 0.95) / mhz : null
-  const lUh = ok ? 50 / (2 * Math.PI * mhz) : null
+  const lUh = ok ? XL_BOBINA_BASE / (2 * Math.PI * mhz) : null
   const vueltas = ok ? vueltasParaInductancia(lUh, d, 2) : null
   const largoBobina = ok && vueltas ? vueltas * 2 : null
   const lCheck =
@@ -251,20 +256,21 @@ const CincoOctavos = () => {
         <p className="text-justify">
           El 5/8 de onda comprime el lóbulo hacia el horizonte (útil en VHF
           móvil) pero no resuena solo como un λ/4. En la base se pone una bobina
-          que aporta unos 50 Ω de reactancia como punto de partida; el ajuste
-          fino es recortando el látigo y espaciando espiras.
+          que compensa la reactancia capacitiva del látigo —del orden de 150–250
+          Ω según el grosor— como punto de partida; el ajuste fino es recortando
+          el látigo y espaciando espiras.
         </p>
 
         <CincoOctavosDiagrama />
 
         <Formula>
           <p>L (m) ≈ 178 / f</p>
-          <p>Inductancia (µH) ≈ 50 / (2π f)</p>
+          <p>Inductancia (µH) ≈ 200 / (2π f)</p>
         </Formula>
         <Nota>
           Vueltas según Wheeler, arrollado con paso de 2 mm. En 2 m suelen ser
-          4–8 espiras sobre 15–25 mm. Un capacitor en serie a veces termina el
-          ajuste.
+          unas 4–7 espiras sobre 10–15 mm. Un capacitor en serie a veces termina
+          el ajuste.
         </Nota>
       </Articulo>
       <Campo>

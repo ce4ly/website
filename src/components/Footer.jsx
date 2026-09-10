@@ -34,11 +34,21 @@ const Footer = () => {
           <div className="flex flex-wrap items-center gap-3 text-blue-950 dark:text-indigo-100">
             <span>
               Desarrollado por{' '}
-              <a href="https://www.seadragon.cl/" className={linkClass}>
+              <a
+                href="https://www.seadragon.cl/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className={linkClass}
+              >
                 Sea Dragon
               </a>{' '}
               /{' '}
-              <a href="https://www.qrz.com/db/CA4NFS" className={linkClass}>
+              <a
+                href="https://www.qrz.com/db/CA4NFS"
+                target="_blank"
+                rel="noopener noreferrer"
+                className={linkClass}
+              >
                 CA5NFS
               </a>
             </span>

@@ -232,8 +232,8 @@ const JPole = () => {
           Calculadora de J-Pole
         </h1>
         <p className="mx-auto max-w-3xl text-sm text-stone-700 sm:text-base dark:text-indigo-100">
-          Calcula las dimensiones de una antena J-Pole a partir de la
-          frecuencia de operación deseada.
+          Calcula las dimensiones de una antena J-Pole a partir de la frecuencia
+          de operación deseada.
         </p>
       </header>
 

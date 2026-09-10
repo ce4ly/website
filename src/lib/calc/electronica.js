@@ -42,7 +42,7 @@ export const COLORES_RESISTENCIA = [
     multi: 1e4,
     tol: null,
     temp: 25,
-    hex: '#ca8a04'
+    hex: '#eab308'
   },
   {
     id: 'verde',
@@ -96,7 +96,7 @@ export const COLORES_RESISTENCIA = [
     multi: 0.1,
     tol: 5,
     temp: null,
-    hex: '#ca8a04'
+    hex: '#b8860b'
   },
   {
     id: 'plata',

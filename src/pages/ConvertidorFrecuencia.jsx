@@ -25,7 +25,9 @@ const labelClass =
   'block text-sm font-medium text-stone-800 dark:text-indigo-100'
 
 const obtenerBanda = frecuenciaMhz => {
-  const banda = BANDAS.find(b => frecuenciaMhz >= b.min && frecuenciaMhz <= b.max)
+  const banda = BANDAS.find(
+    b => frecuenciaMhz >= b.min && frecuenciaMhz <= b.max
+  )
   return banda ? banda.nombre : null
 }
 
@@ -78,9 +80,9 @@ const ConvertidorFrecuencia = () => {
           Convertidor de Frecuencia y Longitud de Onda
         </h1>
         <p className="mx-auto max-w-3xl text-sm text-stone-700 sm:text-base dark:text-indigo-100">
-          Convierte entre frecuencia (MHz) y longitud de onda (metros) usando
-          la relación λ = 300 / f, donde 300 es la velocidad de la luz
-          aproximada en millones de metros por segundo.
+          Convierte entre frecuencia (MHz) y longitud de onda (metros) usando la
+          relación λ = 300 / f, donde 300 es la velocidad de la luz aproximada
+          en millones de metros por segundo.
         </p>
       </header>
 

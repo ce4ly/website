@@ -388,11 +388,11 @@ const SlimJim = () => {
             <p>F ≈ 0,95 × λ / 40</p>
           </div>
           <p className="text-justify text-xs text-stone-500 dark:text-indigo-300/80">
-            Se aplica un factor de velocidad de 0,95 (cobre o aluminio
-            desnudo). Si usa línea bifilar aislada, pruebe con 0,90 y recorte
-            según el SWR. F se mide desde la base: es un punto de partida;
-            ajústelo con un analizador o medidor SWR. d no es crítica; en 2 m
-            suele usarse unos 4 a 5 cm.
+            Se aplica un factor de velocidad de 0,95 (cobre o aluminio desnudo).
+            Si usa línea bifilar aislada, pruebe con 0,90 y recorte según el
+            SWR. F se mide desde la base: es un punto de partida; ajústelo con
+            un analizador o medidor SWR. d no es crítica; en 2 m suele usarse
+            unos 4 a 5 cm.
           </p>
         </article>
 

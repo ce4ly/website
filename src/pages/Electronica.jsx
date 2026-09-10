@@ -227,9 +227,13 @@ const Electronica = () => {
                 className={inputClass}
                 value={q.ohm}
                 onChange={e => {
+                  const tolActual = COLORES_RESISTENCIA.find(
+                    c => c.id === q[`b${nBandas - 1}`]
+                  )?.tol
                   const idsNuevos = valorAColores(
                     parseNumero(e.target.value),
-                    nBandas
+                    nBandas,
+                    tolActual ?? 1
                   )
                   const patch = { ohm: e.target.value }
                   idsNuevos?.forEach((id, i) => {

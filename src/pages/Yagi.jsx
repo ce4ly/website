@@ -358,6 +358,14 @@ const Yagi = () => {
         </Resultado>
       )}
 
+      {frecuenciaValida(mhz) && !hfOk && !vhfOk && (
+        <Nota>
+          {modo === 'hf'
+            ? 'La receta HF simple cubre 2 o 3 elementos. Para más elementos, cambie a VHF/UHF (DL6WU).'
+            : 'DL6WU se calcula de 8 a 40 elementos y necesita el diámetro de los parásitos.'}
+        </Nota>
+      )}
+
       {vhfOk && dl6 && (
         <Resultado>
           <Fila

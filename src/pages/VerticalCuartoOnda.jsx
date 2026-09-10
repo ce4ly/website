@@ -278,7 +278,7 @@ const VerticalCuartoOnda = () => {
 
         <Formula>
           <p>L (m) ≈ 71 / f</p>
-          <p>Re (m) ≈ 74 / f (un 5 % más largo)</p>
+          <p>Re (m) ≈ 74 / f (un 4 % más largo)</p>
           <p>Rt = 0,25 λ &nbsp;&nbsp; Rc = 0,15 λ</p>
         </Formula>
         <Nota>

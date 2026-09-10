@@ -144,7 +144,7 @@ const HiloLargo = () => {
           </dl>
           <Nota>
             El contrapeso corto no reemplaza un plano de tierra. Si sientes RF
-            en el micrófono o en el chasis, alarga el contrapaso, baja potencia
+            en el micrófono o en el chasis, alarga el contrapeso, baja potencia
             y agrega un choque.
           </Nota>
         </div>

@@ -29,7 +29,10 @@ const CODIGOS_Q = [
   { codigo: 'QSN', significado: '¿Me escuchó en ___ kHz?' },
   { codigo: 'QSO', significado: '¿Puede comunicarse con ___ directamente?' },
   { codigo: 'QSP', significado: '¿Puede retransmitir a ___?' },
-  { codigo: 'QST', significado: 'Llamada general a todos los radioaficionados' },
+  {
+    codigo: 'QST',
+    significado: 'Llamada general a todos los radioaficionados'
+  },
   { codigo: 'QSU', significado: '¿Debo transmitir en esta frecuencia?' },
   { codigo: 'QSW', significado: '¿Transmitirá en esta frecuencia?' },
   { codigo: 'QSX', significado: '¿Escuchará a ___ en ___ kHz?' },
@@ -42,7 +45,10 @@ const CODIGOS_Q = [
   { codigo: 'QTR', significado: '¿Cuál es la hora correcta?' },
   { codigo: 'QTX', significado: '¿Mantendrá su estación abierta?' },
   { codigo: 'QUA', significado: '¿Tiene noticias de ___?' },
-  { codigo: 'QUC', significado: '¿Cuál es el número del último mensaje que recibió?' }
+  {
+    codigo: 'QUC',
+    significado: '¿Cuál es el número del último mensaje que recibió?'
+  }
 ]
 
 const thClass =

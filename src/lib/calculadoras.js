@@ -204,8 +204,10 @@ export const loopMagneticoAa5tb = ({
   const q = xl / (2 * (rr + rl))
   const bw = (mhz * 1e6) / q
   const eta = rr / (rr + rl)
-  const vc = Math.sqrt(potenciaW * xl * q)
+  // En resonancia toda la potencia aceptada se disipa en (rr + rl); la tensión
+  // del capacitor es esa corriente circulante por su reactancia: Vc = Irms · XL.
   const iRms = Math.sqrt(potenciaW / (rr + rl))
+  const vc = iRms * xl
   return {
     rr,
     rl,
@@ -229,7 +231,9 @@ export const perdidaLinea = ({ matchedDb, swrCarga }) => {
   const rho2 = rho * rho
   const totalDb = 10 * Math.log10((a * a - rho2) / (a * (1 - rho2)))
   const extraDb = totalDb - matchedDb
-  const gammaIn = rho * 10 ** (-matchedDb / 20)
+  // La onda reflejada recorre la línea de ida y vuelta, así que se atenúa con
+  // el doble de la pérdida adaptada: |Γin| = |Γcarga| · 10^(−2·ML/20) = ρ / a.
+  const gammaIn = rho / a
   const swrEquipo = (1 + gammaIn) / (1 - gammaIn)
   return { totalDb, extraDb, swrEquipo, matchedDb }
 }

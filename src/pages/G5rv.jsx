@@ -396,9 +396,10 @@ const G5RV = () => {
           <p>e ≈ 0,125 λ × 0,91</p>
         </Formula>
         <Nota>
-          La doble Zepp extendida (EDZ) tiene 5/8 de onda por lado y se alimenta
-          con escalera más acoplador. La línea de 1/8 λ (VF 0,91) es el punto de
-          partida; el largo exacto se afina con el tuner.
+          La doble Zepp extendida (EDZ) tiene algo más de 5/8 de onda por lado
+          (≈ 0,64 λ) y se alimenta con escalera más acoplador. La línea de 1/8 λ
+          (VF 0,91) es el punto de partida; el largo exacto se afina con el
+          tuner.
         </Nota>
       </Articulo>
 
@@ -429,7 +430,7 @@ const G5RV = () => {
             valor={formatearLongitud(escalera)}
           />
           <Fila
-            etiqueta={<Cota letra="Z">Cada brazo EDZ (5/8 λ)</Cota>}
+            etiqueta={<Cota letra="Z">Cada brazo EDZ (≈ 0,64 λ)</Cota>}
             valor={formatearLongitud(zeppBrazo)}
           />
           <Fila
