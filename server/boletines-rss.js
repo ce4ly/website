@@ -1,3 +1,5 @@
+import { SOUNDCLOUD_USER_ID } from '../src/lib/soundcloud.js'
+
 const TTL_MS = 60 * 60 * 1000
 
 let cache = { xml: null, fetchedAt: 0 }
@@ -14,10 +16,7 @@ export async function getBoletinesRss(
   env,
   { ahora = Date.now(), fetchImpl = fetch } = {}
 ) {
-  const userId = env.SOUNDCLOUD_USER_ID?.trim()
-  if (!userId) {
-    return { status: 503, body: null, reason: 'unconfigured' }
-  }
+  const userId = env.SOUNDCLOUD_USER_ID?.trim() || SOUNDCLOUD_USER_ID
 
   if (cache.xml && ahora - cache.fetchedAt < TTL_MS) {
     return { status: 200, body: cache.xml, fromCache: true }

@@ -1,4 +1,4 @@
-import { CONTACTO_EMAIL } from '../src/lib/contacto-schema.js'
+import { CONTACTO_API, CONTACTO_EMAIL } from '../src/lib/contacto-schema.js'
 
 const escape = s =>
   String(s ?? '')
@@ -59,7 +59,7 @@ export function renderContactoHtml(result) {
   <h1>Contacto</h1>
   <p>Escríbenos a <a href="mailto:${CONTACTO_EMAIL}">${CONTACTO_EMAIL}</a>. Talca, Región del Maule.</p>
   ${result.error ? `<p role="alert" style="background:#fef2f2;border:1px solid #fecaca;padding:0.75rem;border-radius:0.5rem">${escape(result.error)}</p>` : ''}
-  <form method="POST" action="/contacto" style="display:flex;flex-direction:column;gap:1rem">
+  <form method="POST" action="${CONTACTO_API}" style="display:flex;flex-direction:column;gap:1rem">
     <div style="position:absolute;left:-9999px" aria-hidden="true">
       <label for="contact-website-url">Deja este campo vacío</label>
       <input id="contact-website-url" name="website_url" type="text" tabindex="-1" autocomplete="off" />
@@ -73,6 +73,16 @@ export function renderContactoHtml(result) {
       <textarea id="contact-mensaje" name="mensaje" required minlength="10" maxlength="8000" rows="6" style="${inputClass}">${escape(v.mensaje)}</textarea>
       ${e.mensaje ? `<p style="color:#b91c1c;font-size:0.75rem;margin:0.25rem 0 0">${escape(e.mensaje)}</p>` : ''}
     </div>
+    ${
+      result.captcha?.token
+        ? `<input type="hidden" name="captcha_token" value="${escape(result.captcha.token)}" />
+    <div>
+      <label for="contact-captcha" style="${labelClass}">${escape(result.captcha.pregunta)}</label>
+      <input id="contact-captcha" name="captcha_respuesta" type="text" inputmode="numeric" autocomplete="off" required style="${inputClass}" />
+      ${e.captcha_respuesta ? `<p style="color:#b91c1c;font-size:0.75rem;margin:0.25rem 0 0">${escape(e.captcha_respuesta)}</p>` : ''}
+    </div>`
+        : ''
+    }
     <button type="submit" style="background:#172554;color:#fff;border:0;border-radius:0.5rem;padding:0.65rem 1rem;font-weight:600;cursor:pointer">Enviar mensaje</button>
   </form>
 </body>

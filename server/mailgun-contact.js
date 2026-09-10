@@ -10,6 +10,7 @@ import {
   normalizarCamposContacto,
   validarContacto
 } from '../src/lib/contacto-schema.js'
+import { crearCaptcha, secretCaptcha, verificarCaptcha } from './contacto-captcha.js'
 import { permitirEnvio } from './rate-limit.js'
 
 const DEFAULT_API_BASE = 'https://api.mailgun.net'
@@ -112,7 +113,7 @@ export async function sendContactMail(payload, config) {
  */
 export async function handleContactPost(parsedBody, env, { ip } = {}) {
   const campos = normalizarCamposContacto(parsedBody)
-  const values = valoresPublicos(campos)
+  const publicos = valoresPublicos(campos)
 
   if (campos.website_url.trim() !== '') {
     return { ok: true, discarded: 'honeypot' }
@@ -132,18 +133,35 @@ export async function handleContactPost(parsedBody, env, { ip } = {}) {
       error:
         'Hay muchos envíos desde tu red. Espera un rato o escribe a contacto@ce4ly.cl.',
       fieldErrors: {},
-      values
+      values: publicos,
+      captcha: crearCaptcha(secretCaptcha(env))
     }
   }
 
+  const secret = secretCaptcha(env)
   const validado = validarContacto(campos)
-  if (!validado.ok) {
+  const captchaOk = verificarCaptcha(
+    secret,
+    parsedBody?.captcha_token,
+    parsedBody?.captcha_respuesta
+  )
+  const fieldErrors = {
+    ...(validado.ok ? {} : validado.fieldErrors),
+    ...(captchaOk
+      ? {}
+      : {
+          captcha_respuesta: 'Resuelve la suma para enviar el mensaje.'
+        })
+  }
+  const values = validado.values
+  if (Object.keys(fieldErrors).length > 0) {
     return {
       ok: false,
       status: 400,
       error: 'Revisa los campos marcados.',
-      fieldErrors: validado.fieldErrors,
-      values: validado.values
+      fieldErrors,
+      values,
+      captcha: crearCaptcha(secret)
     }
   }
 
@@ -155,12 +173,12 @@ export async function handleContactPost(parsedBody, env, { ip } = {}) {
       error:
         'El servicio de correo no está configurado. Escríbenos a contacto@ce4ly.cl.',
       fieldErrors: {},
-      values: validado.values
+      values
     }
   }
 
   try {
-    await sendContactMail(validado.values, config)
+    await sendContactMail(values, config)
     return { ok: true }
   } catch (e) {
     console.error('[mailgun]', e)
@@ -170,7 +188,7 @@ export async function handleContactPost(parsedBody, env, { ip } = {}) {
       error:
         'No se pudo enviar el mensaje. Intenta más tarde o escríbenos directamente a contacto@ce4ly.cl.',
       fieldErrors: {},
-      values: validado.values
+      values
     }
   }
 }

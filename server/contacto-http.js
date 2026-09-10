@@ -1,4 +1,5 @@
 import { handleContactPost } from './mailgun-contact.js'
+import { crearCaptcha, secretCaptcha } from './contacto-captcha.js'
 import { renderContactoHtml } from './contacto-html.js'
 import { clientIp } from './rate-limit.js'
 
@@ -24,13 +25,15 @@ export function parseRequestBody(raw, contentType = '') {
 }
 
 export function wantsJson(req) {
+  const mode = String(req.headers['sec-fetch-mode'] || '').toLowerCase()
+  if (mode === 'cors' || mode === 'same-origin') return true
   const accept = String(req.headers.accept || '')
   const ct = String(req.headers['content-type'] || '')
   const xhr = String(req.headers['x-requested-with'] || '')
   return (
     accept.includes('application/json') ||
     ct.includes('application/json') ||
-    xhr === 'fetch' ||
+    xhr.toLowerCase() === 'fetch' ||
     xhr === 'XMLHttpRequest'
   )
 }
@@ -50,6 +53,16 @@ function sendHtml(res, status, html) {
 }
 
 export async function respondContact(req, res, env) {
+  if (req.method === 'GET') {
+    const captcha = crearCaptcha(secretCaptcha(env))
+    if (wantsJson(req)) {
+      sendJson(res, 200, { ok: true, ...captcha })
+    } else {
+      sendHtml(res, 200, renderContactoHtml({ captcha }))
+    }
+    return
+  }
+
   if (req.method !== 'POST') {
     if (wantsJson(req)) {
       sendJson(res, 405, { ok: false, error: 'Método no permitido' })
@@ -83,7 +96,8 @@ export async function respondContact(req, res, env) {
             ok: false,
             error: result.error,
             fieldErrors: result.fieldErrors || {},
-            values: result.values || {}
+            values: result.values || {},
+            ...(result.captcha ? { captcha: result.captcha } : {})
           }
     )
     return

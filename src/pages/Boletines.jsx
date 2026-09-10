@@ -13,11 +13,19 @@ const Boletines = () => {
 
   useEffect(() => {
     let cancelado = false
-    fetch('/boletines.xml', { headers: { Accept: 'application/rss+xml' } })
-      .then(res => {
-        if (!res.ok) throw new Error(String(res.status))
-        return res.text()
+    const leer = async url => {
+      const res = await fetch(url, {
+        headers: { Accept: 'application/rss+xml' }
       })
+      if (!res.ok) throw new Error(String(res.status))
+      const xml = await res.text()
+      if (!xml.includes('<rss') && !xml.includes('<item>')) {
+        throw new Error('no-rss')
+      }
+      return xml
+    }
+    leer('/boletines.xml')
+      .catch(() => leer('/api/boletines.php'))
       .then(xml => {
         if (cancelado) return
         const items = parsearFeedRss(xml)

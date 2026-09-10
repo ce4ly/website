@@ -6,11 +6,21 @@ import {
 } from './boletines-rss.js'
 
 describe('getBoletinesRss', () => {
-  it('responde 503 si no hay SOUNDCLOUD_USER_ID', async () => {
+  it('usa el ID público del club si no hay SOUNDCLOUD_USER_ID', async () => {
     resetBoletinesCache()
-    const r = await getBoletinesRss({})
-    expect(r.status).toBe(503)
-    expect(r.body).toBeNull()
+    const xml = '<?xml version="1.0"?><rss><channel></channel></rss>'
+    const r = await getBoletinesRss(
+      {},
+      {
+        ahora: 1,
+        fetchImpl: async url => {
+          expect(String(url)).toContain('1676930966')
+          return { ok: true, text: async () => xml }
+        }
+      }
+    )
+    expect(r.status).toBe(200)
+    expect(r.body).toBe(xml)
   })
 
   it('cachea el feed al menos 60 minutos', async () => {

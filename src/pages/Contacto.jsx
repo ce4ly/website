@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { CONTACTO_EMAIL, jsonLdContactPoint } from '../lib/club.js'
+import { CONTACTO_API } from '../lib/contacto-schema.js'
+import { interpretarRespuestaContacto } from '../lib/contacto-respuesta.js'
 
 const inputClass =
   'mt-1 w-full rounded-lg border border-stone-300 bg-white px-3 py-2 text-sm text-stone-900 shadow-sm placeholder:text-stone-400 focus:border-blue-950 focus:outline-none focus:ring-2 focus:ring-blue-950/20 dark:border-indigo-800 dark:bg-indigo-950/50 dark:text-white dark:placeholder:text-indigo-400 dark:focus:border-indigo-400 dark:focus:ring-indigo-400/25'
@@ -23,10 +25,21 @@ const campoError = (fieldErrors, name) =>
     </p>
   ) : null
 
+const captchaDeRespuesta = data => {
+  if (data?.token && data?.pregunta) {
+    return { token: data.token, pregunta: data.pregunta }
+  }
+  if (data?.captcha?.token && data?.captcha?.pregunta) {
+    return { token: data.captcha.token, pregunta: data.captcha.pregunta }
+  }
+  return null
+}
+
 const ContactoForm = ({ asuntoInicial }) => {
   const [status, setStatus] = useState('idle')
   const [errorMsg, setErrorMsg] = useState('')
   const [fieldErrors, setFieldErrors] = useState({})
+  const [captcha, setCaptcha] = useState(null)
   const [values, setValues] = useState({
     nombre: '',
     correo: '',
@@ -40,6 +53,25 @@ const ContactoForm = ({ asuntoInicial }) => {
     setValues(v => (v.asunto ? v : { ...v, asunto: asuntoInicial }))
   }, [asuntoInicial])
 
+  useEffect(() => {
+    let cancelado = false
+    fetch(CONTACTO_API, {
+      headers: { Accept: 'application/json', 'X-Requested-With': 'fetch' }
+    })
+      .then(res => res.json())
+      .then(data => {
+        if (cancelado) return
+        const siguiente = captchaDeRespuesta(data)
+        setCaptcha(siguiente || { error: true })
+      })
+      .catch(() => {
+        if (!cancelado) setCaptcha({ error: true })
+      })
+    return () => {
+      cancelado = true
+    }
+  }, [formKey])
+
   const handleSubmit = async e => {
     e.preventDefault()
     setErrorMsg('')
@@ -49,33 +81,42 @@ const ContactoForm = ({ asuntoInicial }) => {
     const fd = new FormData(form)
     const payload = Object.fromEntries(fd.entries())
     try {
-      const res = await fetch('/contacto', {
+      const res = await fetch(CONTACTO_API, {
         method: 'POST',
         headers: {
           Accept: 'application/json',
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          'X-Requested-With': 'fetch'
         },
         body: JSON.stringify(payload)
       })
-      const data = await res.json().catch(() => ({}))
-      if (data.values) {
+      const text = await res.text()
+      const resultado = interpretarRespuestaContacto(
+        res.status,
+        res.headers.get('content-type'),
+        text
+      )
+      if (resultado.values && Object.keys(resultado.values).length > 0) {
         setValues({
-          nombre: data.values.nombre || '',
-          correo: data.values.correo || '',
-          indicativo: data.values.indicativo || '',
-          asunto: data.values.asunto || '',
-          mensaje: data.values.mensaje || ''
+          nombre: resultado.values.nombre || '',
+          correo: resultado.values.correo || '',
+          indicativo: resultado.values.indicativo || '',
+          asunto: resultado.values.asunto || '',
+          mensaje: resultado.values.mensaje || ''
         })
       }
-      if (!res.ok || !data.ok) {
-        setFieldErrors(data.fieldErrors || {})
-        setErrorMsg(data.error || 'No se pudo enviar el mensaje.')
+      const siguiente = captchaDeRespuesta(
+        resultado.captcha ? { captcha: resultado.captcha } : resultado.data
+      )
+      if (siguiente) setCaptcha(siguiente)
+      if (!resultado.ok) {
+        setFieldErrors(resultado.fieldErrors || {})
+        setErrorMsg(resultado.error || 'No se pudo enviar el mensaje.')
         setStatus('idle')
         setFormKey(k => k + 1)
         return
       }
       setStatus('success')
-      form.reset()
     } catch {
       setErrorMsg(
         `Error de red. Comprueba tu conexión o escríbenos a ${CONTACTO_EMAIL}.`
@@ -105,6 +146,7 @@ const ContactoForm = ({ asuntoInicial }) => {
               asunto: asuntoInicial,
               mensaje: ''
             })
+            setCaptcha(null)
             setFormKey(k => k + 1)
           }}
         >
@@ -119,7 +161,7 @@ const ContactoForm = ({ asuntoInicial }) => {
       key={formKey}
       className="relative space-y-5 rounded-xl border border-stone-300/70 bg-white p-6 shadow-sm dark:border-indigo-900 dark:bg-indigo-950/40"
       method="POST"
-      action="/contacto"
+      action={CONTACTO_API}
       onSubmit={handleSubmit}
     >
       <script dangerouslySetInnerHTML={{ __html: ENHANCE_SCRIPT }} />
@@ -137,6 +179,9 @@ const ContactoForm = ({ asuntoInicial }) => {
         />
       </div>
       <input type="hidden" name="t0" id="contact-t0" defaultValue="" />
+      {captcha?.token ? (
+        <input type="hidden" name="captcha_token" value={captcha.token} />
+      ) : null}
 
       <div>
         <label htmlFor="contact-nombre" className={labelClass}>
@@ -227,6 +272,31 @@ const ContactoForm = ({ asuntoInicial }) => {
         {campoError(fieldErrors, 'mensaje')}
       </div>
 
+      <div>
+        <label htmlFor="contact-captcha" className={labelClass}>
+          {captcha?.pregunta || 'Comprobación'}
+        </label>
+        <input
+          id="contact-captcha"
+          name="captcha_respuesta"
+          type="text"
+          inputMode="numeric"
+          autoComplete="off"
+          required
+          className={`${inputClass} ${fieldErrors.captcha_respuesta ? inputErrorClass : ''}`}
+          aria-invalid={Boolean(fieldErrors.captcha_respuesta)}
+        />
+        <p className="mt-1 text-xs text-stone-500 dark:text-indigo-300/80">
+          Escribe el resultado de la suma.
+        </p>
+        {campoError(fieldErrors, 'captcha_respuesta')}
+        {captcha?.error ? (
+          <p className="mt-1 text-xs text-red-700 dark:text-red-300" role="alert">
+            No se pudo cargar la comprobación. Recarga la página.
+          </p>
+        ) : null}
+      </div>
+
       {errorMsg !== '' && (
         <p
           className="rounded-md border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-900 dark:border-red-900/50 dark:bg-red-950/40 dark:text-red-100"
@@ -238,7 +308,7 @@ const ContactoForm = ({ asuntoInicial }) => {
 
       <button
         type="submit"
-        disabled={status === 'sending'}
+        disabled={status === 'sending' || !captcha?.token}
         className="w-full rounded-lg bg-blue-950 px-4 py-2.5 text-sm font-semibold text-white shadow transition-colors hover:bg-blue-900 disabled:cursor-not-allowed disabled:opacity-60 dark:bg-indigo-600 dark:hover:bg-indigo-500"
       >
         {status === 'sending' ? 'Enviando…' : 'Enviar mensaje'}

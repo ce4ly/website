@@ -25,6 +25,7 @@ describe('api-config', () => {
     expect(php).toContain("'apiKey' => 'key-test'")
     expect(php).toContain("'apiBase' => 'https://api.eu.mailgun.net'")
     expect(php).toContain("'to' => 'contacto@ce4ly.cl'")
+    expect(php).toContain("'captchaSecret' => 'key-test'")
   })
 
   it('genera boletines.local.php si hay ID', () => {

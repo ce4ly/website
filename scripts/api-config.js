@@ -22,6 +22,7 @@ return [
     'apiBase' => ${phpQuote(apiBase)},
     'from' => ${phpQuote(from)},
     'to' => ${phpQuote(to)},
+    'captchaSecret' => ${phpQuote(env.CAPTCHA_SECRET?.trim() || apiKey)},
 ];
 `
 }

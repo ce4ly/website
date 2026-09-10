@@ -1,3 +1,5 @@
+export const FEED_BOLETINES = '/feedBoletines.xml'
+
 const decodeXml = texto =>
   String(texto)
     .replace(/<!\[CDATA\[([\s\S]*?)\]\]>/g, '$1')

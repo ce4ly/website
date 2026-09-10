@@ -8,6 +8,9 @@ declare(strict_types=1);
 
 const TTL = 3600;
 
+/** ID público de soundcloud.com/radio-club-lircay */
+const SOUNDCLOUD_USER_ID_CLUB = '1676930966';
+
 function user_id(): string
 {
     $env = trim((string) getenv('SOUNDCLOUD_USER_ID'));
@@ -21,7 +24,7 @@ function user_id(): string
             return trim((string) $cfg['userId']);
         }
     }
-    return '';
+    return SOUNDCLOUD_USER_ID_CLUB;
 }
 
 header('Cache-Control: public, max-age=300');

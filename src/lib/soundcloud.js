@@ -2,6 +2,9 @@
 export const SOUNDCLOUD_RADIO_CLUB_PROFILE =
   'https://soundcloud.com/radio-club-lircay'
 
+/** ID público del mismo perfil (no es secreto). */
+export const SOUNDCLOUD_USER_ID = '1676930966'
+
 const OEMBED_ENDPOINT = 'https://soundcloud.com/oembed.json'
 
 /**

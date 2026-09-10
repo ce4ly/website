@@ -1,6 +1,7 @@
 import { z } from 'zod'
 
 export const CONTACTO_EMAIL = 'contacto@ce4ly.cl'
+export const CONTACTO_API = '/api/contact.php'
 export const TIEMPO_MINIMO_MS = 3000
 export const TASA_MAXIMA = 5
 export const TASA_VENTANA_MS = 60 * 60 * 1000

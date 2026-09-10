@@ -80,8 +80,14 @@ for (const code of ['404', '500']) {
   console.log(`Copied ${code}/index.html → ${code}.html`)
 }
 
-const htaccess = `<IfModule mod_rewrite.c>
+const htaccess = `Options -MultiViews
+
+<IfModule mod_rewrite.c>
 	RewriteEngine on
+	RewriteBase /
+
+	# /boletines.xml no debe negociarse como el directorio /boletines/
+	RewriteRule ^boletines\\.xml$ api/boletines.php [END]
 
 	# Redirecciones permanentes de rutas antiguas
 ${REDIRECCIONES.map(
@@ -89,7 +95,6 @@ ${REDIRECCIONES.map(
 ).join('\n')}
 
 	RewriteRule ^api/solar\\.json$ api/solar.php [L]
-	RewriteRule ^boletines\\.xml$ api/boletines.php [L]
 
 	RewriteCond %{REQUEST_METHOD} POST
 	RewriteRule ^contacto/?$ api/contact.php [L]
