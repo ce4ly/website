@@ -1,18 +1,10 @@
 import { defineConfig, loadEnv } from 'vite'
 import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
-import { handleContactPost } from './server/mailgun-contact.js'
+import { respondContact } from './server/contacto-http.js'
+import { getBoletinesRss } from './server/boletines-rss.js'
 import { getSolar } from './server/solar.js'
 import { robotsTxt, sitemapXml } from './src/lib/meta.js'
-
-function readBody(req) {
-  return new Promise((resolve, reject) => {
-    const chunks = []
-    req.on('data', c => chunks.push(c))
-    req.on('end', () => resolve(Buffer.concat(chunks).toString('utf8')))
-    req.on('error', reject)
-  })
-}
 
 function send(res, status, type, body) {
   res.statusCode = status
@@ -34,6 +26,15 @@ function contactApiPlugin(env) {
           send(res, 200, 'text/plain; charset=utf-8', robotsTxt())
           return
         }
+        if (pathname === '/boletines.xml' && req.method === 'GET') {
+          const feed = await getBoletinesRss(env)
+          if (!feed.body) {
+            send(res, 503, 'text/plain; charset=utf-8', 'Feed no disponible.')
+            return
+          }
+          send(res, 200, 'application/rss+xml; charset=utf-8', feed.body)
+          return
+        }
         if (
           (pathname === '/api/solar.json' || pathname === '/api/solar.php') &&
           req.method === 'GET'
@@ -47,32 +48,14 @@ function contactApiPlugin(env) {
           )
           return
         }
-        if (pathname !== '/api/contact.php' || req.method !== 'POST') {
-          next()
+        if (
+          (pathname === '/contacto' || pathname === '/api/contact.php') &&
+          req.method === 'POST'
+        ) {
+          await respondContact(req, res, env)
           return
         }
-        const raw = await readBody(req)
-        let body
-        try {
-          body = raw.trim() ? JSON.parse(raw) : {}
-        } catch {
-          send(
-            res,
-            400,
-            'application/json; charset=utf-8',
-            JSON.stringify({ ok: false, error: 'Cuerpo JSON inválido' })
-          )
-          return
-        }
-        const result = await handleContactPost(body, env)
-        send(
-          res,
-          result.ok ? 200 : result.status,
-          'application/json; charset=utf-8',
-          JSON.stringify(
-            result.ok ? { ok: true } : { ok: false, error: result.error }
-          )
-        )
+        next()
       })
     }
   }
@@ -84,7 +67,11 @@ export default defineConfig(({ mode }) => {
     plugins: [react(), tailwindcss(), contactApiPlugin(env)],
     test: {
       environment: 'node',
-      include: ['src/**/*.test.js']
+      include: [
+        'src/**/*.test.js',
+        'server/**/*.test.js',
+        'scripts/**/*.test.js'
+      ]
     }
   }
 })

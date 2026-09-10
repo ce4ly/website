@@ -24,7 +24,7 @@ const Acerca = () => {
             hacia el servicio comunitario. El club busca reunir a personas
             interesadas en esta disciplina para propender al mutuo conocimiento,
             el perfeccionamiento técnico y el fortalecimiento de lazos de
-            amistad y solidaridad entre sus socios.
+            amistad y solidaridad entre quienes participan.
           </p>
         </section>
 
@@ -33,27 +33,25 @@ const Acerca = () => {
             Objetivos Institucionales
           </h2>
           <p className="text-stone-700 dark:text-indigo-100 text-justify">
-            De acuerdo con sus estatutos y la gestión de su directiva actual,
-            los objetivos principales son:
+            De acuerdo con sus estatutos, los objetivos principales son:
           </p>
           <ul className="list-disc space-y-2 pl-5 text-stone-700 dark:text-indigo-100">
             <li>
               <span className="font-semibold">Capacitación Continua:</span>{' '}
               Organizar conferencias, talleres y cursos —tales como
               &nbsp;“Electrónica Básica”, “Confección de Antenas” y
-              &nbsp;“Reglamentación”— para elevar el nivel técnico de los socios
-              y la comunidad.
+              &nbsp;“Reglamentación”— para elevar el nivel técnico de la
+              comunidad.
             </li>
             <li>
               <span className="font-semibold">Excelencia Técnica:</span>{' '}
-              Mantener y optimizar una red de repetidores en VHF y UHF para
-              garantizar una cobertura amplia y eficiente en la región.
+              Impulsar la experimentación técnica y la construcción de antenas,
+              con herramientas y talleres abiertos.
             </li>
             <li>
               <span className="font-semibold">Representatividad:</span> Actuar
-              como el organismo oficial que representa a sus socios en todos los
-              asuntos vinculados a los fines de la institución ante las
-              autoridades competentes.
+              ante las autoridades competentes en los asuntos vinculados a los
+              fines de la institución.
             </li>
           </ul>
         </section>

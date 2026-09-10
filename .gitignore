@@ -10,6 +10,7 @@ lerna-debug.log*
 node_modules
 .env
 public/api/mailgun.local.php
+public/api/boletines.local.php
 dist
 dist-ssr
 *.local

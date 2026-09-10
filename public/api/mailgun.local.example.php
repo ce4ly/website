@@ -9,9 +9,9 @@ declare(strict_types=1);
 return [
     'apiKey' => 'key-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
     'domain' => 'mg.ce4ly.cl',
-    /** us o eu (debe coincidir con tu cuenta Mailgun) */
-    'region' => 'us',
+    /** https://api.mailgun.net (US) o https://api.eu.mailgun.net (EU) */
+    'apiBase' => 'https://api.eu.mailgun.net',
     'from' => 'Radio Club Lircay <noreply@mg.ce4ly.cl>',
-    /** Opcional; por defecto el script usa contacto@ce4ly.cl */
+    /** Opcional; por defecto contacto@ce4ly.cl */
     'to' => 'contacto@ce4ly.cl',
 ];

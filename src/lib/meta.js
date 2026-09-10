@@ -85,8 +85,18 @@ export const metaTagsHtml = path => {
     `<meta name="twitter:card" content="summary_large_image" />`,
     `<meta name="twitter:title" content="${escapeAttr(m.title)}" />`,
     `<meta name="twitter:description" content="${escapeAttr(m.description)}" />`,
-    `<meta name="twitter:image" content="${escapeAttr(m.image)}" />`
-  ].join('\n    ')
+    `<meta name="twitter:image" content="${escapeAttr(m.image)}" />`,
+    extraHeadHtml(path)
+  ]
+    .filter(Boolean)
+    .join('\n    ')
+}
+
+const extraHeadHtml = path => {
+  if (path === '/boletines') {
+    return `<link rel="alternate" type="application/rss+xml" title="Boletines del Radio Club Lircay" href="${SITE_URL}/boletines.xml" />`
+  }
+  return ''
 }
 
 export const sitemapXml = () => {

@@ -7,7 +7,8 @@ import { readFileSync, existsSync } from 'node:fs'
 import fs from 'node:fs/promises'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { handleContactPost } from './mailgun-contact.js'
+import { respondContact } from './contacto-http.js'
+import { getBoletinesRss } from './boletines-rss.js'
 import { destinoRedireccion } from '../src/lib/redirecciones.js'
 import { getSolar } from './solar.js'
 import { robotsTxt, sitemapXml } from '../src/lib/meta.js'
@@ -56,59 +57,13 @@ const MIME = {
   '.webmanifest': 'application/manifest+json'
 }
 
-function readJsonBody(req) {
-  return new Promise((resolve, reject) => {
-    const chunks = []
-    req.on('data', c => chunks.push(c))
-    req.on('end', () => {
-      const raw = Buffer.concat(chunks).toString('utf8')
-      if (!raw.trim()) {
-        resolve({})
-        return
-      }
-      try {
-        resolve(JSON.parse(raw))
-      } catch {
-        resolve(null)
-      }
-    })
-    req.on('error', reject)
-  })
-}
-
-function sendJson(res, status, obj) {
-  res.writeHead(status, {
-    'Content-Type': 'application/json; charset=utf-8',
-    'Cache-Control': 'no-store'
-  })
-  res.end(JSON.stringify(obj))
-}
-
-async function handleApiContact(req, res) {
-  if (req.method !== 'POST') {
-    sendJson(res, 405, { ok: false, error: 'Método no permitido' })
-    return
-  }
-  const data = await readJsonBody(req)
-  if (data === null) {
-    sendJson(res, 400, { ok: false, error: 'Cuerpo JSON inválido' })
-    return
-  }
-  const result = await handleContactPost(data, process.env)
-  if (result.ok) {
-    sendJson(res, 200, { ok: true })
-  } else {
-    sendJson(res, result.status, { ok: false, error: result.error })
-  }
-}
-
-async function trySendFile(res, filePath) {
+async function trySendFile(res, filePath, status = 200) {
   const stat = await fs.stat(filePath)
   if (!stat.isFile()) throw new Error('not a file')
   const ext = path.extname(filePath)
   const type = MIME[ext] || 'application/octet-stream'
   const buf = await fs.readFile(filePath)
-  res.writeHead(200, { 'Content-Type': type })
+  res.writeHead(status, { 'Content-Type': type })
   res.end(buf)
 }
 
@@ -127,8 +82,26 @@ async function serveStatic(req, res) {
     return
   }
 
-  if (pathname === '/api/contact.php') {
-    await handleApiContact(req, res)
+  if (
+    (pathname === '/contacto' || pathname === '/api/contact.php') &&
+    req.method === 'POST'
+  ) {
+    await respondContact(req, res, process.env)
+    return
+  }
+
+  if (pathname === '/boletines.xml') {
+    const feed = await getBoletinesRss(process.env)
+    if (!feed.body) {
+      res.writeHead(503, { 'Content-Type': 'text/plain; charset=utf-8' })
+      res.end('Feed no disponible.')
+      return
+    }
+    res.writeHead(200, {
+      'Content-Type': 'application/rss+xml; charset=utf-8',
+      'Cache-Control': 'public, max-age=300'
+    })
+    res.end(feed.body)
     return
   }
 
@@ -171,17 +144,25 @@ async function serveStatic(req, res) {
     }
   }
 
-  res.writeHead(404, { 'Content-Type': 'text/plain; charset=utf-8' })
-  res.end('No encontrado')
+  const notFound = path.join(distDir, '404.html')
+  try {
+    await trySendFile(res, notFound, 404)
+    return
+  } catch {
+    res.writeHead(404, { 'Content-Type': 'text/plain; charset=utf-8' })
+    res.end('No encontrado')
+  }
 }
 
 const server = http.createServer((req, res) => {
   serveStatic(req, res).catch(err => {
     console.error(err)
-    if (!res.headersSent) {
+    if (res.headersSent) return
+    const errorPage = path.join(distDir, '500.html')
+    trySendFile(res, errorPage, 500).catch(() => {
       res.writeHead(500, { 'Content-Type': 'text/plain; charset=utf-8' })
-    }
-    res.end('Error interno')
+      res.end('Error interno')
+    })
   })
 })
 

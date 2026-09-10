@@ -8,7 +8,7 @@ const Terminos = () => {
         Esta página contendrá los términos de servicio del sitio web del Radio
         Club CE4LY. Aquí podrás detallar las condiciones de uso,
         responsabilidades, limitaciones y cualquier otra información legal
-        relevante para los visitantes y socios.
+        relevante para quienes visitan el sitio.
       </p>
       <p className="text-stone-600 dark:text-indigo-200 text-xs sm:text-sm">
         De momento es solo un texto de ejemplo que podrás reemplazar más

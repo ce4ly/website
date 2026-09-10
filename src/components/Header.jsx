@@ -10,7 +10,9 @@ import {
 const navLinks = [
   { to: '/', label: 'Inicio' },
   { to: '/acerca', label: 'Acerca' },
-  { to: '/boletines', label: 'Boletines' }
+  { to: '/boletines', label: 'Boletines' },
+  { to: '/emergencias', label: 'Emergencias' },
+  { to: '/contacto', label: 'Contacto' }
 ]
 
 const groupTitleClass =
@@ -155,7 +157,7 @@ const Header = () => {
           </div>
         </div>
         <nav
-          className="hidden items-center gap-4 text-sm md:flex"
+          className="hidden items-center gap-3 text-sm lg:gap-4 md:flex"
           aria-label="Principal"
         >
           {navLinks.map(({ to, label }) => (

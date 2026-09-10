@@ -1,5 +1,7 @@
 export const SITE_URL = 'https://www.ce4ly.cl'
 
+export const CONTACTO_EMAIL = 'contacto@ce4ly.cl'
+
 export const CLUB = {
   nombre: 'Radio Club Lircay',
   indicativo: 'CE4LY',
@@ -37,4 +39,14 @@ export const jsonLdOrganization = () => ({
     addressCountry: CLUB.pais
   },
   sameAs: CLUB.sameAs
+})
+
+export const jsonLdContactPoint = () => ({
+  '@context': 'https://schema.org',
+  '@type': 'ContactPoint',
+  email: CONTACTO_EMAIL,
+  contactType: 'customer support',
+  areaServed: 'CL',
+  availableLanguage: 'es',
+  url: `${SITE_URL}/contacto`
 })

@@ -6,8 +6,8 @@ const PoliticaPrivacidad = () => {
       </h1>
       <p className="text-stone-700 dark:text-indigo-100 text-sm sm:text-base max-w-2xl">
         Esta página se utilizará para explicar cómo el Radio Club CE4LY
-        recopila, utiliza y protege los datos personales de los visitantes y
-        socios. Aquí podrás describir los tipos de información que se almacenan,
+        recopila, utiliza y protege los datos personales de quienes visitan el
+        sitio. Aquí podrás describir los tipos de información que se almacenan,
         los fines del tratamiento y los derechos de los usuarios.
       </p>
       <p className="text-stone-600 dark:text-indigo-200 text-xs sm:text-sm">

@@ -61,6 +61,10 @@ import Electronica from './pages/Electronica.jsx'
 import HiloLargo from './pages/HiloLargo.jsx'
 import Discone from './pages/Discone.jsx'
 import Reloj from './pages/Reloj.jsx'
+import Cursos from './pages/Cursos.jsx'
+import Emergencias from './pages/Emergencias.jsx'
+import ErrorSitio from './pages/ErrorSitio.jsx'
+import ErrorBoundary from './components/ErrorBoundary.jsx'
 import DocumentHead from './components/DocumentHead.jsx'
 import { RUTAS_PRERENDER } from './lib/tools-catalog.js'
 import { REDIRECCIONES } from './lib/redirecciones.js'
@@ -74,114 +78,127 @@ export const AppLayout = () => {
       <Header />
       <main className="flex-1">
         <div className="mx-auto max-w-5xl px-4 sm:px-6">
-          <Routes>
-            <Route path="/" element={<Inicio />} />
-            <Route path="/acerca" element={<Acerca />} />
-            <Route path="/ExDirectorio" element={<ExDirectorio />} />
-            <Route path="/boletines" element={<Boletines />} />
-            <Route path="/contacto" element={<Contacto />} />
-            <Route path="/terminos" element={<Terminos />} />
-            <Route path="/privacidad" element={<PoliticaPrivacidad />} />
-            <Route path="/herramientas" element={<Herramientas />} />
-            <Route path="/buscador" element={<BuscadorLicencias />} />
-            <Route
-              path="/herramientas/alfabeto-fonetico"
-              element={<AlfabetoFonetico />}
-            />
-            <Route path="/herramientas/codigos-q" element={<CodigoQ />} />
-            <Route
-              path="/herramientas/tonos-ctcss-dcs"
-              element={<TonosCtcssDcs />}
-            />
-            <Route
-              path="/convertidor/frecuencia"
-              element={<ConvertidorFrecuencia />}
-            />
-            <Route path="/calculadoras/dipolo" element={<Dipolo />} />
-            <Route
-              path="/herramientas/espectro-radioelectrico"
-              element={<EspectroRadioelectrico />}
-            />
-            <Route
-              path="/herramientas/indicativos"
-              element={<IndicativosPais />}
-            />
-            <Route path="/calculadoras/j-pole" element={<JPole />} />
-            <Route path="/calculadoras/slim-jim" element={<SlimJim />} />
-            <Route path="/calculadoras/flowerpot" element={<Flowerpot />} />
-            <Route
-              path="/convertidor/potencia"
-              element={<ConvertidorPotencia />}
-            />
-            <Route path="/calculadoras/v-invertida" element={<InvertedV />} />
-            <Route path="/calculadoras/efhw" element={<Efhw />} />
-            <Route
-              path="/calculadoras/vertical-cuarto-onda"
-              element={<VerticalCuartoOnda />}
-            />
-            <Route path="/calculadoras/loop-delta" element={<LoopDelta />} />
-            <Route path="/calculadoras/ocfd" element={<Ocfd />} />
-            <Route path="/calculadoras/g5rv" element={<G5rv />} />
-            <Route
-              path="/calculadoras/loop-magnetico"
-              element={<LoopMagnetico />}
-            />
-            <Route
-              path="/calculadoras/ground-plane"
-              element={<GroundPlane />}
-            />
-            <Route
-              path="/calculadoras/cinco-octavos"
-              element={<CincoOctavos />}
-            />
-            <Route path="/calculadoras/colineal" element={<Colineal />} />
-            <Route path="/calculadoras/turnstile" element={<Turnstile />} />
-            <Route path="/calculadoras/yagi" element={<Yagi />} />
-            <Route path="/calculadoras/moxon" element={<Moxon />} />
-            <Route path="/calculadoras/quad" element={<Quad />} />
-            <Route
-              path="/calculadoras/choque-coaxial"
-              element={<ChoqueCoaxial />}
-            />
-            <Route path="/calculadoras/bobina" element={<Bobina />} />
-            <Route path="/calculadoras/trampas" element={<Trampas />} />
-            <Route path="/calculadoras/linea-q" element={<LineaQ />} />
-            <Route
-              path="/calculadoras/gamma-hairpin"
-              element={<GammaHairpin />}
-            />
-            <Route
-              path="/calculadoras/perdida-linea"
-              element={<PerdidaLinea />}
-            />
-            <Route path="/calculadoras/nvis" element={<Nvis />} />
-            <Route
-              path="/frecuencias/banda-ciudadana"
-              element={<BandaCiudadana />}
-            />
-            <Route path="/frecuencias/marinas" element={<CanalesMarinos />} />
-            <Route
-              path="/frecuencias/radio-comercial"
-              element={<RadioComercial />}
-            />
-            <Route path="/frecuencias/tv-abierta" element={<TvAbierta />} />
-            <Route path="/frecuencias/emergencia" element={<Emergencia />} />
-            <Route path="/herramientas/locator" element={<Locator />} />
-            <Route path="/herramientas/morse" element={<Morse />} />
-            <Route path="/herramientas/electronica" element={<Electronica />} />
-            <Route path="/herramientas/reloj" element={<Reloj />} />
-            <Route path="/calculadoras/horizonte" element={<Horizonte />} />
-            <Route path="/calculadoras/hilo-largo" element={<HiloLargo />} />
-            <Route path="/calculadoras/discone" element={<Discone />} />
-            <Route path="/ca5nfs" element={<Ca5nfs />} />
-            {REDIRECCIONES.map(({ from, to }) => (
+          <ErrorBoundary>
+            <Routes>
+              <Route path="/" element={<Inicio />} />
+              <Route path="/acerca" element={<Acerca />} />
+              <Route path="/ExDirectorio" element={<ExDirectorio />} />
+              <Route path="/boletines" element={<Boletines />} />
+              <Route path="/cursos" element={<Cursos />} />
+              <Route path="/emergencias" element={<Emergencias />} />
+              <Route path="/contacto" element={<Contacto />} />
               <Route
-                key={from}
-                path={from}
-                element={<Navigate to={to} replace />}
+                path="/404"
+                element={<ErrorSitio tipo="no-encontrado" />}
               />
-            ))}
-          </Routes>
+              <Route path="/500" element={<ErrorSitio tipo="servidor" />} />
+              <Route path="/terminos" element={<Terminos />} />
+              <Route path="/privacidad" element={<PoliticaPrivacidad />} />
+              <Route path="/herramientas" element={<Herramientas />} />
+              <Route path="/buscador" element={<BuscadorLicencias />} />
+              <Route
+                path="/herramientas/alfabeto-fonetico"
+                element={<AlfabetoFonetico />}
+              />
+              <Route path="/herramientas/codigos-q" element={<CodigoQ />} />
+              <Route
+                path="/herramientas/tonos-ctcss-dcs"
+                element={<TonosCtcssDcs />}
+              />
+              <Route
+                path="/convertidor/frecuencia"
+                element={<ConvertidorFrecuencia />}
+              />
+              <Route path="/calculadoras/dipolo" element={<Dipolo />} />
+              <Route
+                path="/herramientas/espectro-radioelectrico"
+                element={<EspectroRadioelectrico />}
+              />
+              <Route
+                path="/herramientas/indicativos"
+                element={<IndicativosPais />}
+              />
+              <Route path="/calculadoras/j-pole" element={<JPole />} />
+              <Route path="/calculadoras/slim-jim" element={<SlimJim />} />
+              <Route path="/calculadoras/flowerpot" element={<Flowerpot />} />
+              <Route
+                path="/convertidor/potencia"
+                element={<ConvertidorPotencia />}
+              />
+              <Route path="/calculadoras/v-invertida" element={<InvertedV />} />
+              <Route path="/calculadoras/efhw" element={<Efhw />} />
+              <Route
+                path="/calculadoras/vertical-cuarto-onda"
+                element={<VerticalCuartoOnda />}
+              />
+              <Route path="/calculadoras/loop-delta" element={<LoopDelta />} />
+              <Route path="/calculadoras/ocfd" element={<Ocfd />} />
+              <Route path="/calculadoras/g5rv" element={<G5rv />} />
+              <Route
+                path="/calculadoras/loop-magnetico"
+                element={<LoopMagnetico />}
+              />
+              <Route
+                path="/calculadoras/ground-plane"
+                element={<GroundPlane />}
+              />
+              <Route
+                path="/calculadoras/cinco-octavos"
+                element={<CincoOctavos />}
+              />
+              <Route path="/calculadoras/colineal" element={<Colineal />} />
+              <Route path="/calculadoras/turnstile" element={<Turnstile />} />
+              <Route path="/calculadoras/yagi" element={<Yagi />} />
+              <Route path="/calculadoras/moxon" element={<Moxon />} />
+              <Route path="/calculadoras/quad" element={<Quad />} />
+              <Route
+                path="/calculadoras/choque-coaxial"
+                element={<ChoqueCoaxial />}
+              />
+              <Route path="/calculadoras/bobina" element={<Bobina />} />
+              <Route path="/calculadoras/trampas" element={<Trampas />} />
+              <Route path="/calculadoras/linea-q" element={<LineaQ />} />
+              <Route
+                path="/calculadoras/gamma-hairpin"
+                element={<GammaHairpin />}
+              />
+              <Route
+                path="/calculadoras/perdida-linea"
+                element={<PerdidaLinea />}
+              />
+              <Route path="/calculadoras/nvis" element={<Nvis />} />
+              <Route
+                path="/frecuencias/banda-ciudadana"
+                element={<BandaCiudadana />}
+              />
+              <Route path="/frecuencias/marinas" element={<CanalesMarinos />} />
+              <Route
+                path="/frecuencias/radio-comercial"
+                element={<RadioComercial />}
+              />
+              <Route path="/frecuencias/tv-abierta" element={<TvAbierta />} />
+              <Route path="/frecuencias/emergencia" element={<Emergencia />} />
+              <Route path="/herramientas/locator" element={<Locator />} />
+              <Route path="/herramientas/morse" element={<Morse />} />
+              <Route
+                path="/herramientas/electronica"
+                element={<Electronica />}
+              />
+              <Route path="/herramientas/reloj" element={<Reloj />} />
+              <Route path="/calculadoras/horizonte" element={<Horizonte />} />
+              <Route path="/calculadoras/hilo-largo" element={<HiloLargo />} />
+              <Route path="/calculadoras/discone" element={<Discone />} />
+              <Route path="/ca5nfs" element={<Ca5nfs />} />
+              {REDIRECCIONES.map(({ from, to }) => (
+                <Route
+                  key={from}
+                  path={from}
+                  element={<Navigate to={to} replace />}
+                />
+              ))}
+              <Route path="*" element={<ErrorSitio tipo="no-encontrado" />} />
+            </Routes>
+          </ErrorBoundary>
         </div>
       </main>
       <Footer />

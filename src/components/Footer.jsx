@@ -3,8 +3,10 @@ import { Link } from 'react-router-dom'
 const FOOTER_LINKS = [
   { to: '/', label: 'Inicio' },
   { to: '/acerca', label: 'Acerca' },
+  { to: '/cursos', label: 'Cursos' },
   { to: '/boletines', label: 'Boletines' },
   { to: '/herramientas', label: 'Herramientas' },
+  { to: '/emergencias', label: 'Emergencias' },
   { to: '/contacto', label: 'Contacto' }
 ]
 

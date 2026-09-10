@@ -1,6 +1,37 @@
+import { useEffect, useState } from 'react'
+import { SITE_URL } from '../lib/club.js'
+import { formatearFechaRss, parsearFeedRss } from '../lib/rss.js'
+import { SOUNDCLOUD_RADIO_CLUB_PROFILE } from '../lib/soundcloud.js'
 import SoundCloudSection from '../components/SoundCloudSection.jsx'
 
+const enlaceClass =
+  'font-medium text-blue-950 underline underline-offset-4 hover:text-blue-800 dark:text-indigo-200 dark:hover:text-indigo-100'
+
 const Boletines = () => {
+  const [episodios, setEpisodios] = useState(null)
+  const [estado, setEstado] = useState('cargando')
+
+  useEffect(() => {
+    let cancelado = false
+    fetch('/boletines.xml', { headers: { Accept: 'application/rss+xml' } })
+      .then(res => {
+        if (!res.ok) throw new Error(String(res.status))
+        return res.text()
+      })
+      .then(xml => {
+        if (cancelado) return
+        const items = parsearFeedRss(xml)
+        setEpisodios(items)
+        setEstado(items.length > 0 ? 'ok' : 'vacio')
+      })
+      .catch(() => {
+        if (!cancelado) setEstado('error')
+      })
+    return () => {
+      cancelado = true
+    }
+  }, [])
+
   return (
     <section className="my-16 space-y-8">
       <header className="space-y-3">
@@ -8,14 +39,62 @@ const Boletines = () => {
           Boletines Informativos
         </h1>
         <p className="mx-auto max-w-3xl text-justify text-sm text-stone-700 sm:text-base dark:text-indigo-100">
-          El Radio Club Lircay, a través de su estación repetidora en VHF,
-          transmite boletines informativos los días sábado entre 20:30 y 21:00,
-          los cuales son grabados y publicados en nuestro SoundCloud. Además, se
-          desarrollan operativos los días miércoles entre 20:30 y 21:00 con el
-          propósito de entregar reportes de audio a las estaciones que se hacen
-          presentes y pasar mensajes informativos.
+          Los boletines del Radio Club Lircay se publican en SoundCloud. Puede
+          escucharlos aquí o{' '}
+          <a href={`${SITE_URL}/boletines.xml`} className={enlaceClass}>
+            suscribirse al feed RSS
+          </a>{' '}
+          del club.
         </p>
       </header>
+
+      {estado === 'ok' && (
+        <ol className="mx-auto max-w-3xl space-y-3">
+          {episodios.map(ep => (
+            <li
+              key={ep.link || ep.title}
+              className="rounded-xl border border-stone-300/70 bg-white px-4 py-3 shadow-sm dark:border-indigo-900 dark:bg-indigo-950/40"
+            >
+              <a
+                href={ep.link || SOUNDCLOUD_RADIO_CLUB_PROFILE}
+                target="_blank"
+                rel="noreferrer noopener"
+                className="font-medium text-blue-950 hover:underline dark:text-indigo-100"
+              >
+                {ep.title}
+              </a>
+              {ep.pubDate && (
+                <p className="mt-1 text-xs text-stone-500 dark:text-indigo-300">
+                  <time dateTime={ep.pubDate}>
+                    {formatearFechaRss(ep.pubDate)}
+                  </time>
+                </p>
+              )}
+            </li>
+          ))}
+        </ol>
+      )}
+
+      {estado === 'cargando' && (
+        <p className="mx-auto max-w-3xl text-sm text-stone-600 dark:text-indigo-300">
+          Cargando episodios…
+        </p>
+      )}
+
+      {estado === 'error' && (
+        <p className="mx-auto max-w-3xl text-sm text-stone-600 dark:text-indigo-300">
+          El listado no está disponible ahora. Puede escucharlos en{' '}
+          <a
+            href={SOUNDCLOUD_RADIO_CLUB_PROFILE}
+            target="_blank"
+            rel="noreferrer noopener"
+            className={enlaceClass}
+          >
+            SoundCloud
+          </a>
+          .
+        </p>
+      )}
 
       <SoundCloudSection />
     </section>

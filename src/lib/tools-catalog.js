@@ -492,7 +492,7 @@ export const PAGINAS_ESTATICAS = [
     path: '/',
     title: 'Radio Club Lircay de Talca',
     description:
-      'Sitio del Radio Club Lircay de Talca (CE4LY): radioafición, repetidores, boletines y herramientas para el taller.',
+      'Sitio del Radio Club Lircay de Talca (CE4LY): radioafición, cursos, boletines y herramientas para el taller.',
     keywords: ['ce4ly', 'talca', 'radio club', 'radioafición']
   },
   {
@@ -508,16 +508,49 @@ export const PAGINAS_ESTATICAS = [
     path: '/boletines',
     title: 'Boletines',
     description:
-      'Boletines informativos del Radio Club Lircay, transmitidos por la estación repetidora en VHF.',
-    keywords: ['boletines', 'soundcloud']
+      'Boletines informativos del Radio Club Lircay, publicados en SoundCloud y reexpuestos por RSS.',
+    keywords: ['boletines', 'soundcloud', 'rss']
+  },
+  {
+    slug: 'cursos',
+    path: '/cursos',
+    title: 'Cursos',
+    description:
+      'Cursos abiertos a la comunidad del Radio Club Lircay: electrónica básica, confección de antenas y reglamentación.',
+    keywords: ['cursos', 'electrónica', 'antenas', 'reglamentación']
+  },
+  {
+    slug: 'emergencias',
+    path: '/emergencias',
+    title: 'Radioafición y emergencias',
+    description:
+      'Rol del Radio Club Lircay en emergencias: qué hacer si es vecino o radioaficionado, y cómo coordinar con el club.',
+    keywords: ['emergencias', 'sea', 'senapred']
   },
   {
     slug: 'contacto',
     path: '/contacto',
     title: 'Contacto',
     description:
-      'Escríbenos al Radio Club Lircay de Talca para socios, visitas y consultas sobre radioafición.',
+      'Formulario y correo del Radio Club Lircay de Talca (contacto@ce4ly.cl) para consultas sobre radioafición y cursos.',
     keywords: ['contacto']
+  },
+  {
+    slug: 'error-404',
+    path: '/404',
+    title: 'Página no encontrada',
+    description:
+      'La dirección no corresponde a ninguna página del Radio Club Lircay.',
+    keywords: ['404'],
+    enSitemap: false
+  },
+  {
+    slug: 'error-500',
+    path: '/500',
+    title: 'Error del servidor',
+    description: 'No se pudo cargar esta página del Radio Club Lircay.',
+    keywords: ['500'],
+    enSitemap: false
   },
   {
     slug: 'terminos',
@@ -592,6 +625,8 @@ export const RUTA_PROPAGACION = '/herramientas/reloj'
 export const RUTAS_OFFLINE = [
   '/',
   '/herramientas',
+  '/cursos',
+  '/emergencias',
   ...TOOLS.filter(t => t.path !== RUTA_PROPAGACION).map(t => t.path)
 ]
 

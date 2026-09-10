@@ -1,4 +1,5 @@
 import {
+  existsSync,
   readFileSync,
   writeFileSync,
   mkdirSync,
@@ -7,6 +8,7 @@ import {
 } from 'fs'
 import { join, dirname } from 'path'
 import { fileURLToPath } from 'url'
+import { boletinesLocalPhp, cargarEnv, mailgunLocalPhp } from './api-config.js'
 import { REDIRECCIONES } from '../src/lib/redirecciones.js'
 import {
   RUTA_PROPAGACION,
@@ -16,7 +18,12 @@ import {
 import { metaTagsHtml, robotsTxt, sitemapXml } from '../src/lib/meta.js'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
-const distDir = join(__dirname, '..', 'dist')
+const rootDir = join(__dirname, '..')
+const distDir = join(rootDir, 'dist')
+const envPath = join(rootDir, '.env')
+if (existsSync(envPath)) {
+  cargarEnv(readFileSync(envPath, 'utf8'), process.env)
+}
 const serverPath = join(distDir, 'server', 'entry-server.js')
 
 const PRERENDER_PATHS = RUTAS_PRERENDER
@@ -67,6 +74,12 @@ writeFileSync(join(distDir, 'sitemap.xml'), sitemapXml())
 writeFileSync(join(distDir, 'robots.txt'), robotsTxt())
 console.log('Wrote sitemap.xml and robots.txt')
 
+for (const code of ['404', '500']) {
+  const src = join(distDir, code, 'index.html')
+  writeFileSync(join(distDir, `${code}.html`), readFileSync(src, 'utf-8'))
+  console.log(`Copied ${code}/index.html → ${code}.html`)
+}
+
 const htaccess = `<IfModule mod_rewrite.c>
 	RewriteEngine on
 
@@ -76,15 +89,42 @@ ${REDIRECCIONES.map(
 ).join('\n')}
 
 	RewriteRule ^api/solar\\.json$ api/solar.php [L]
+	RewriteRule ^boletines\\.xml$ api/boletines.php [L]
+
+	RewriteCond %{REQUEST_METHOD} POST
+	RewriteRule ^contacto/?$ api/contact.php [L]
 
 	RewriteCond %{REQUEST_FILENAME} -f [OR]
 	RewriteCond %{REQUEST_FILENAME} -d
 	RewriteRule ^ - [L]
-	RewriteRule ^ index.html [L]
 </IfModule>
+
+<FilesMatch "\\.local\\.php$">
+	Require all denied
+</FilesMatch>
+
+ErrorDocument 404 /404.html
+ErrorDocument 500 /500.html
 `
 writeFileSync(join(distDir, '.htaccess'), htaccess)
 console.log('Wrote dist/.htaccess redirects')
+
+const apiDir = join(distDir, 'api')
+mkdirSync(apiDir, { recursive: true })
+const mailgunPhp = mailgunLocalPhp(process.env)
+if (mailgunPhp) {
+  writeFileSync(join(apiDir, 'mailgun.local.php'), mailgunPhp)
+  console.log('Wrote dist/api/mailgun.local.php (desde .env)')
+} else {
+  console.log(
+    'Sin MAILGUN_API_KEY/MAILGUN_DOMAIN: no se escribió mailgun.local.php'
+  )
+}
+const boletinesPhp = boletinesLocalPhp(process.env)
+if (boletinesPhp) {
+  writeFileSync(join(apiDir, 'boletines.local.php'), boletinesPhp)
+  console.log('Wrote dist/api/boletines.local.php (desde .env)')
+}
 
 const walkAssets = (dir, prefix = '/assets') => {
   const out = []
@@ -111,7 +151,10 @@ const STATICOS_OFFLINE = [
   '/logo-frontpage.png',
   '/banner.jpg',
   '/og-default.png',
-  '/data/licencias.json'
+  '/data/licencias.json',
+  '/img/cursos/electronica-basica.webp',
+  '/img/cursos/confeccion-antenas.webp',
+  '/img/cursos/reglamentacion.webp'
 ]
 
 const PRECACHE = [
@@ -122,15 +165,17 @@ const PRECACHE = [
   ])
 ]
 
-const sw = `const CACHE = 'ce4ly-offline-v2'
+const sw = `const CACHE = 'ce4ly-offline-v3'
 const PRECACHE = ${JSON.stringify(PRECACHE)}
 const RUTA_PROPAGACION = ${JSON.stringify(RUTA_PROPAGACION)}
-const API_VIVA = ['/api/solar.json', '/api/solar.php']
+const API_VIVA = ['/api/solar.json', '/api/solar.php', '/api/contact.php', '/api/boletines.php']
+const RUTAS_VIVAS = ['/contacto', '/boletines.xml']
 
 const esVivo = pathname =>
   pathname === RUTA_PROPAGACION ||
   pathname.startsWith(RUTA_PROPAGACION + '/') ||
-  API_VIVA.includes(pathname)
+  API_VIVA.includes(pathname) ||
+  RUTAS_VIVAS.includes(pathname)
 
 self.addEventListener('install', event => {
   event.waitUntil(

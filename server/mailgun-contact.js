@@ -1,53 +1,39 @@
 /**
- * Envío de mensajes del formulario de contacto vía Mailgun HTTP API.
+ * Envío del formulario de contacto vía API HTTP de Mailgun (sin SDK).
+ * Equivale a un `action` de servidor de React Router: nunca corre en el cliente.
  * @see https://documentation.mailgun.com/docs/mailgun/api-reference/send/mailgun/messages/post-v3--domain-name--messages
  */
 
-const DEFAULT_CONTACT_TO = 'contacto@ce4ly.cl'
+import {
+  CONTACTO_EMAIL,
+  TIEMPO_MINIMO_MS,
+  normalizarCamposContacto,
+  validarContacto
+} from '../src/lib/contacto-schema.js'
+import { permitirEnvio } from './rate-limit.js'
+
+const DEFAULT_API_BASE = 'https://api.mailgun.net'
 
 export function getConfigFromEnv(env) {
   const apiKey = env.MAILGUN_API_KEY?.trim()
   const domain = env.MAILGUN_DOMAIN?.trim()
-  const from = env.MAILGUN_FROM?.trim()
-  const to = (env.CONTACT_TO?.trim() || DEFAULT_CONTACT_TO).trim()
-  const region = (env.MAILGUN_REGION || 'us').toLowerCase()
+  const apiBase = (env.MAILGUN_API_BASE || DEFAULT_API_BASE)
+    .trim()
+    .replace(/\/$/, '')
+  const from =
+    env.MAILGUN_FROM?.trim() ||
+    (domain ? `Radio Club Lircay <noreply@${domain}>` : '')
+  const to = (env.CONTACT_TO?.trim() || CONTACTO_EMAIL).trim()
 
   if (!apiKey || !domain || !from) return null
-
-  const base =
-    region === 'eu'
-      ? 'https://api.eu.mailgun.net/v3'
-      : 'https://api.mailgun.net/v3'
 
   return {
     apiKey,
     domain,
     from,
     to,
-    endpoint: `${base}/${domain}/messages`
+    endpoint: `${apiBase}/v3/${domain}/messages`
   }
-}
-
-export function validateContactPayload(data) {
-  const name = String(data?.name ?? '').trim()
-  const email = String(data?.email ?? '').trim()
-  const message = String(data?.message ?? '').trim()
-  const hp = String(data?.website_url ?? '').trim()
-
-  if (hp !== '') {
-    return { error: 'Solicitud no válida' }
-  }
-  if (name.length < 2 || name.length > 120) {
-    return { error: 'Indica un nombre válido (2–120 caracteres).' }
-  }
-  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || email.length > 254) {
-    return { error: 'Indica un correo electrónico válido.' }
-  }
-  if (message.length < 10 || message.length > 8000) {
-    return { error: 'El mensaje debe tener entre 10 y 8.000 caracteres.' }
-  }
-
-  return { name, email, message }
 }
 
 function escapeHtml(s) {
@@ -58,22 +44,42 @@ function escapeHtml(s) {
     .replaceAll('"', '&quot;')
 }
 
+function valoresPublicos(campos) {
+  return {
+    nombre: campos.nombre.trim(),
+    correo: campos.correo.trim(),
+    indicativo: campos.indicativo.trim(),
+    asunto: campos.asunto.trim(),
+    mensaje: campos.mensaje.trim()
+  }
+}
+
 export async function sendContactMail(payload, config) {
-  const subject = `Contacto web CE4LY — ${payload.name}`
+  const subject = `[CE4LY] ${payload.asunto}`
   const text = [
-    `Nombre: ${payload.name}`,
-    `Correo: ${payload.email}`,
+    `Nombre: ${payload.nombre}`,
+    `Correo: ${payload.correo}`,
+    payload.indicativo ? `Indicativo: ${payload.indicativo}` : null,
+    `Asunto: ${payload.asunto}`,
     '',
     'Mensaje:',
-    payload.message
-  ].join('\n')
+    payload.mensaje
+  ]
+    .filter(Boolean)
+    .join('\n')
 
   const html = [
-    '<p><strong>Nombre:</strong> ' + escapeHtml(payload.name) + '</p>',
-    '<p><strong>Correo:</strong> ' + escapeHtml(payload.email) + '</p>',
+    `<p><strong>Nombre:</strong> ${escapeHtml(payload.nombre)}</p>`,
+    `<p><strong>Correo:</strong> ${escapeHtml(payload.correo)}</p>`,
+    payload.indicativo
+      ? `<p><strong>Indicativo:</strong> ${escapeHtml(payload.indicativo)}</p>`
+      : '',
+    `<p><strong>Asunto:</strong> ${escapeHtml(payload.asunto)}</p>`,
     '<p><strong>Mensaje:</strong></p>',
-    '<p>' + escapeHtml(payload.message).replaceAll('\n', '<br/>') + '</p>'
-  ].join('\n')
+    `<p>${escapeHtml(payload.mensaje).replaceAll('\n', '<br/>')}</p>`
+  ]
+    .filter(Boolean)
+    .join('\n')
 
   const body = new URLSearchParams()
   body.set('from', config.from)
@@ -81,7 +87,7 @@ export async function sendContactMail(payload, config) {
   body.set('subject', subject)
   body.set('text', text)
   body.set('html', html)
-  body.set('h:Reply-To', payload.email)
+  body.set('h:Reply-To', payload.correo)
 
   const auth = Buffer.from(`api:${config.apiKey}`).toString('base64')
 
@@ -101,23 +107,60 @@ export async function sendContactMail(payload, config) {
   return res.json().catch(() => ({}))
 }
 
-export async function handleContactPost(parsedBody, env) {
+/**
+ * Acción de servidor del formulario de contacto.
+ */
+export async function handleContactPost(parsedBody, env, { ip } = {}) {
+  const campos = normalizarCamposContacto(parsedBody)
+  const values = valoresPublicos(campos)
+
+  if (campos.website_url.trim() !== '') {
+    return { ok: true, discarded: 'honeypot' }
+  }
+
+  if (campos.t0.trim() !== '') {
+    const t0 = Number(campos.t0)
+    if (Number.isFinite(t0) && Date.now() - t0 < TIEMPO_MINIMO_MS) {
+      return { ok: true, discarded: 'too-fast' }
+    }
+  }
+
+  if (!permitirEnvio(ip || 'unknown')) {
+    return {
+      ok: false,
+      status: 429,
+      error:
+        'Hay muchos envíos desde tu red. Espera un rato o escribe a contacto@ce4ly.cl.',
+      fieldErrors: {},
+      values
+    }
+  }
+
+  const validado = validarContacto(campos)
+  if (!validado.ok) {
+    return {
+      ok: false,
+      status: 400,
+      error: 'Revisa los campos marcados.',
+      fieldErrors: validado.fieldErrors,
+      values: validado.values
+    }
+  }
+
   const config = getConfigFromEnv(env)
   if (!config) {
     return {
       ok: false,
       status: 503,
-      error: 'El servicio de correo no está configurado (variables MAILGUN_*).'
+      error:
+        'El servicio de correo no está configurado. Escríbenos a contacto@ce4ly.cl.',
+      fieldErrors: {},
+      values: validado.values
     }
   }
 
-  const v = validateContactPayload(parsedBody)
-  if (v.error) {
-    return { ok: false, status: 400, error: v.error }
-  }
-
   try {
-    await sendContactMail(v, config)
+    await sendContactMail(validado.values, config)
     return { ok: true }
   } catch (e) {
     console.error('[mailgun]', e)
@@ -125,7 +168,9 @@ export async function handleContactPost(parsedBody, env) {
       ok: false,
       status: 502,
       error:
-        'No se pudo enviar el mensaje. Intenta más tarde o escríbenos directamente.'
+        'No se pudo enviar el mensaje. Intenta más tarde o escríbenos directamente a contacto@ce4ly.cl.',
+      fieldErrors: {},
+      values: validado.values
     }
   }
 }

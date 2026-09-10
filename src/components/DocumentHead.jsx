@@ -1,6 +1,10 @@
 import { useEffect } from 'react'
 import { useLocation } from 'react-router-dom'
-import { jsonLdOrganization } from '../lib/club.js'
+import {
+  jsonLdContactPoint,
+  jsonLdOrganization,
+  SITE_URL
+} from '../lib/club.js'
 import { metaDeRuta } from '../lib/meta.js'
 
 const upsertMeta = (selector, attrs) => {
@@ -70,6 +74,35 @@ const DocumentHead = () => {
       jsonEl.textContent = JSON.stringify(jsonLdOrganization())
     } else if (jsonEl) {
       jsonEl.remove()
+    }
+
+    const contactId = 'jsonld-contactpoint'
+    let contactEl = document.getElementById(contactId)
+    if (pathname === '/contacto') {
+      if (!contactEl) {
+        contactEl = document.createElement('script')
+        contactEl.type = 'application/ld+json'
+        contactEl.id = contactId
+        document.head.appendChild(contactEl)
+      }
+      contactEl.textContent = JSON.stringify(jsonLdContactPoint())
+    } else if (contactEl) {
+      contactEl.remove()
+    }
+
+    const rssSel = 'link[rel="alternate"][type="application/rss+xml"]'
+    let rssEl = document.head.querySelector(rssSel)
+    if (pathname === '/boletines') {
+      if (!rssEl) {
+        rssEl = document.createElement('link')
+        document.head.appendChild(rssEl)
+      }
+      rssEl.setAttribute('rel', 'alternate')
+      rssEl.setAttribute('type', 'application/rss+xml')
+      rssEl.setAttribute('title', 'Boletines del Radio Club Lircay')
+      rssEl.setAttribute('href', `${SITE_URL}/boletines.xml`)
+    } else if (rssEl) {
+      rssEl.remove()
     }
   }, [pathname])
 
