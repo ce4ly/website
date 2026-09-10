@@ -182,7 +182,7 @@ const Colineal = () => {
 
   return (
     <CalculadoraLayout
-      titulo="Colineal coaxial (Franklin / COCO)"
+      titulo="Colineal Coaxial (Franklin / COCO)"
       intro="Largo de cada segmento con el factor de velocidad del coaxial, y una estimación de ganancia según el número de secciones."
     >
       <Articulo titulo="Franklin y COCO">

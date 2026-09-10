@@ -43,7 +43,7 @@ const Indicativos = () => {
     <section className="my-16 space-y-8">
       <header className="space-y-3 text-center">
         <h1 className="text-3xl font-serif font-semibold tracking-tight text-stone-900 sm:text-4xl dark:text-white">
-          Indicativos por país
+          Indicativos por País
         </h1>
         <p className="mx-auto max-w-3xl text-sm text-stone-700 sm:text-base dark:text-indigo-100">
           Prefijo con el que se reconoce un país en el aire y las series de

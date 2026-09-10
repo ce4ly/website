@@ -188,7 +188,7 @@ const LoopDelta = () => {
 
   return (
     <CalculadoraLayout
-      titulo="Loop delta / cuadro de onda completa"
+      titulo="Loop Delta / Cuadro de Onda Completa"
       intro="Perímetro, lados, punto de alimentación según polarización y tramo de λ/4 de 75 Ω para adaptar a 50 Ω."
     >
       <Articulo titulo="Cuadro y delta">

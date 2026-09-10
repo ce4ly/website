@@ -198,7 +198,7 @@ const Nvis = () => {
 
   return (
     <CalculadoraLayout
-      titulo="Altura sobre el suelo y ángulo NVIS"
+      titulo="Altura sobre el Suelo y Ángulo NVIS"
       intro="En 40 y 80 m la altura del dipolo decide si ilumina el cielo (NVIS) o el horizonte (DX)."
     >
       <Articulo titulo="El primer lóbulo">

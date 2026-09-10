@@ -180,7 +180,7 @@ const GammaHairpin = () => {
 
   return (
     <CalculadoraLayout
-      titulo="Gamma match y hairpin"
+      titulo="Gamma Match y Hairpin"
       intro="Puntos de partida para adaptar un excitado de yagi (20–30 Ω) a 50 Ω."
     >
       <Articulo titulo="Dos matching clásicos">

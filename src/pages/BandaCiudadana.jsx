@@ -30,7 +30,7 @@ const BandaCiudadana = () => {
 
   return (
     <section className="my-16 space-y-8">
-      <EncabezadoReferencia titulo="Canales de banda ciudadana">
+      <EncabezadoReferencia titulo="Canales de Banda Ciudadana">
         Los 40 canales del Servicio de Banda Local en 27 MHz, según la
         canalización de SUBTEL. En Chile se necesita permiso; no es la banda de
         radioaficionado.

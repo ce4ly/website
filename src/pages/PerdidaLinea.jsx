@@ -37,7 +37,7 @@ const PerdidaLinea = () => {
 
   return (
     <CalculadoraLayout
-      titulo="Pérdida de línea y ROE real"
+      titulo="Pérdida de Línea y ROE Real"
       intro="La ROE que ve el equipo no es la de la antena: el coaxial pierde ida y vuelta. Aquí se separan ambas."
     >
       <Articulo titulo="Pérdida extra por ROE">

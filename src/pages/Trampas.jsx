@@ -37,7 +37,7 @@ const Trampas = () => {
 
   return (
     <CalculadoraLayout
-      titulo="Trampas LC resonantes"
+      titulo="Trampas LC Resonantes"
       intro="Calcule L o C para que el paralelo resuene en la banda que quiere rechazar."
     >
       <Articulo titulo="Trampa en paralelo">

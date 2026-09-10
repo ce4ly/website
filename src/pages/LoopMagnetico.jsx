@@ -187,7 +187,7 @@ const LoopMagnetico = () => {
 
   return (
     <CalculadoraLayout
-      titulo="Loop magnético (STL)"
+      titulo="Loop Magnético (STL)"
       intro="Capacidad de resonancia, Q, eficiencia, ancho de banda, corriente y tensión en el capacitor (AA5TB / ARRL)."
     >
       <Articulo titulo="Small transmitting loop">

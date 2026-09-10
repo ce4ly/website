@@ -32,7 +32,7 @@ const TvAbierta = () => {
 
   return (
     <section className="my-16 space-y-8">
-      <EncabezadoReferencia titulo="Frecuencias de TV abierta">
+      <EncabezadoReferencia titulo="Frecuencias de TV Abierta">
         Canalización de 6 MHz para televisión de libre recepción en Chile
         (ISDB-Tb). El número que muestra el televisor (13.1, 7.1) es virtual: el
         canal de radiofrecuencia es el de esta tabla.

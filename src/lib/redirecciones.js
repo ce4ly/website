@@ -28,7 +28,14 @@ export const REDIRECCIONES = [
   { from: '/turnstile', to: '/calculadoras/turnstile' },
   { from: '/yagi', to: '/calculadoras/yagi' },
   { from: '/moxon', to: '/calculadoras/moxon' },
-  { from: '/quad', to: '/calculadoras/quad' }
+  { from: '/quad', to: '/calculadoras/quad' },
+  { from: '/choque-coaxial', to: '/calculadoras/choque-coaxial' },
+  { from: '/bobina', to: '/calculadoras/bobina' },
+  { from: '/trampas', to: '/calculadoras/trampas' },
+  { from: '/linea-q', to: '/calculadoras/linea-q' },
+  { from: '/gamma-hairpin', to: '/calculadoras/gamma-hairpin' },
+  { from: '/perdida-linea', to: '/calculadoras/perdida-linea' },
+  { from: '/nvis', to: '/calculadoras/nvis' }
 ]
 
 export const destinoRedireccion = pathname => {

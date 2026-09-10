@@ -223,7 +223,7 @@ const GroundPlane = () => {
 
   return (
     <CalculadoraLayout
-      titulo="Ground plane λ/4 a 45°"
+      titulo="Ground Plane λ/4 a 45°"
       intro="La vertical más básica en VHF/UHF: radiador de cuarto de onda y radiales caídos a 45° para acercar la impedancia a 50 Ω."
     >
       <Articulo titulo="Por qué 45°">

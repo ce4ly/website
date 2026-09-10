@@ -28,7 +28,7 @@ const Bobina = () => {
 
   return (
     <CalculadoraLayout
-      titulo="Inductancia de solenoide (Wheeler)"
+      titulo="Inductancia de Solenoide (Wheeler)"
       intro="Bobinas de carga y trampas: L a partir de vueltas, diámetro y largo."
     >
       <Articulo titulo="Fórmula de Wheeler">

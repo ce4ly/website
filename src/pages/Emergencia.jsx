@@ -15,7 +15,7 @@ import {
 const Emergencia = () => {
   return (
     <section className="my-16 space-y-8">
-      <EncabezadoReferencia titulo="Frecuencias de emergencia">
+      <EncabezadoReferencia titulo="Frecuencias de Emergencia">
         Puntos de encuentro de radioaficionados en Chile (CE3SER), centros de
         actividad de IARU Región 2 y frecuencias internacionales de socorro. En
         emergencia real se usan las que indique el control de red.

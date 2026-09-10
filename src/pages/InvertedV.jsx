@@ -297,7 +297,7 @@ const VInvertida = () => {
 
   return (
     <CalculadoraLayout
-      titulo="Calculadora de V invertida"
+      titulo="Calculadora de V Invertida"
       intro="Dipolo en V invertida: corrige el largo por el ángulo de apertura y calcula vano y altura de las puntas."
     >
       <Articulo titulo="¿Qué es una V invertida?">

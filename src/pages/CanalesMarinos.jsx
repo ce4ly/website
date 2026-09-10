@@ -30,7 +30,7 @@ const CanalesMarinos = () => {
 
   return (
     <section className="my-16 space-y-8">
-      <EncabezadoReferencia titulo="Canales de frecuencias marinas">
+      <EncabezadoReferencia titulo="Canales de Frecuencias Marinas">
         Canalización VHF marina internacional (156–162 MHz). En dúplex, el barco
         transmite en una frecuencia y la costa en la otra. El canal 16 es
         socorro, seguridad y llamada.

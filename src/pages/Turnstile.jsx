@@ -216,7 +216,7 @@ const Turnstile = () => {
 
   return (
     <CalculadoraLayout
-      titulo="Turnstile / eggbeater"
+      titulo="Turnstile / Eggbeater"
       intro="Dos dipolos (turnstile) o dos loops (eggbeater) en cuadratura, para polarización circular en satélites."
     >
       <Articulo titulo="Polarización circular">

@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { NavLink, useLocation } from 'react-router-dom'
 import ThemeSwitch from './ThemeSwitch.jsx'
 import {
-  HERRAMIENTA_GRUPOS_PUBLICOS,
+  HERRAMIENTA_GRUPOS_MENU,
   HERRAMIENTA_LINKS
 } from '../lib/herramientas.js'
 
@@ -86,22 +86,7 @@ const Header = () => {
             </button>
             {toolsOpen && (
               <div className="absolute right-0 top-full z-20 max-h-[80vh] w-80 overflow-y-auto rounded-lg border border-stone-200 bg-white py-2 shadow-lg dark:border-indigo-800 dark:bg-indigo-950">
-                <NavLink
-                  to="/herramientas"
-                  end
-                  onClick={() => setToolsOpen(false)}
-                  className={({ isActive }) =>
-                    [
-                      'mx-2 mb-1 block rounded-md px-3 py-2 text-sm font-medium text-blue-950 no-underline dark:text-indigo-100',
-                      isActive
-                        ? 'bg-stone-100 dark:bg-indigo-900/70'
-                        : 'hover:bg-stone-100 dark:hover:bg-indigo-900/70'
-                    ].join(' ')
-                  }
-                >
-                  Ver todas
-                </NavLink>
-                {HERRAMIENTA_GRUPOS_PUBLICOS.map(({ title, links }) => (
+                {HERRAMIENTA_GRUPOS_MENU.map(({ title, links }) => (
                   <div key={title}>
                     <p className={groupTitleClass}>{title}</p>
                     {links.map(({ to, label }) => (
@@ -123,6 +108,21 @@ const Header = () => {
                     ))}
                   </div>
                 ))}
+                <NavLink
+                  to="/herramientas"
+                  end
+                  onClick={() => setToolsOpen(false)}
+                  className={({ isActive }) =>
+                    [
+                      'mx-2 mt-2 block rounded-md px-3 py-2 text-sm font-medium text-blue-950 no-underline dark:text-indigo-100',
+                      isActive
+                        ? 'bg-stone-100 dark:bg-indigo-900/70'
+                        : 'hover:bg-stone-100 dark:hover:bg-indigo-900/70'
+                    ].join(' ')
+                  }
+                >
+                  Todas las Herramientas
+                </NavLink>
               </div>
             )}
           </div>
@@ -157,15 +157,7 @@ const Header = () => {
                 {label}
               </NavLink>
             ))}
-            <NavLink
-              to="/herramientas"
-              end
-              onClick={() => setOpen(false)}
-              className={mobileNavClass}
-            >
-              Ver todas las herramientas
-            </NavLink>
-            {HERRAMIENTA_GRUPOS_PUBLICOS.map(({ title, links }) => (
+            {HERRAMIENTA_GRUPOS_MENU.map(({ title, links }) => (
               <div key={title} className="flex flex-col gap-1">
                 <p className={groupTitleClass}>{title}</p>
                 {links.map(({ to, label }) => (
@@ -180,6 +172,14 @@ const Header = () => {
                 ))}
               </div>
             ))}
+            <NavLink
+              to="/herramientas"
+              end
+              onClick={() => setOpen(false)}
+              className={mobileNavClass}
+            >
+              Todas las Herramientas
+            </NavLink>
           </div>
         </nav>
       )}

@@ -242,7 +242,7 @@ const CincoOctavos = () => {
 
   return (
     <CalculadoraLayout
-      titulo="5/8 de onda con bobina de carga"
+      titulo="5/8 de Onda con Bobina de Carga"
       intro="Largo del látigo de 5/8 λ y bobina de base para llevar la reactancia a un punto cercano a 50 Ω."
     >
       <Articulo titulo="Por qué la bobina">

@@ -31,6 +31,13 @@
 	RewriteRule ^yagi/?$ /calculadoras/yagi [R=301,L]
 	RewriteRule ^moxon/?$ /calculadoras/moxon [R=301,L]
 	RewriteRule ^quad/?$ /calculadoras/quad [R=301,L]
+	RewriteRule ^choque-coaxial/?$ /calculadoras/choque-coaxial [R=301,L]
+	RewriteRule ^bobina/?$ /calculadoras/bobina [R=301,L]
+	RewriteRule ^trampas/?$ /calculadoras/trampas [R=301,L]
+	RewriteRule ^linea-q/?$ /calculadoras/linea-q [R=301,L]
+	RewriteRule ^gamma-hairpin/?$ /calculadoras/gamma-hairpin [R=301,L]
+	RewriteRule ^perdida-linea/?$ /calculadoras/perdida-linea [R=301,L]
+	RewriteRule ^nvis/?$ /calculadoras/nvis [R=301,L]
 
 	RewriteCond %{REQUEST_FILENAME} -f [OR]
 	RewriteCond %{REQUEST_FILENAME} -d

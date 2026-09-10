@@ -33,7 +33,7 @@ const ChoqueCoaxial = () => {
 
   return (
     <CalculadoraLayout
-      titulo="Choque de coaxial (balun 1:1)"
+      titulo="Choque de Coaxial (Balun 1:1)"
       intro="Vueltas y diámetro del formero para que la reactancia del choque sea alta en la banda de trabajo."
     >
       <Articulo titulo="Corriente en la malla">

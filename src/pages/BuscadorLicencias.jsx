@@ -88,10 +88,9 @@ const Buscador = () => {
 
   return (
     <section className="my-16 space-y-8">
-      <EncabezadoReferencia titulo="Buscador de licencias">
+      <EncabezadoReferencia titulo="Buscador de Licencias">
         Listado de radioaficionados de Chile publicado por SUBTEL. Busque por
-        nombre, indicativo o número de licencia. Un trozo alcanza: NFS encuentra
-        CA5NFS.
+        nombre, indicativo o número de licencia.
       </EncabezadoReferencia>
 
       <FiltroReferencia

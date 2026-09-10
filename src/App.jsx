@@ -15,12 +15,12 @@ import Terminos from './pages/Terminos.jsx'
 import PoliticaPrivacidad from './pages/PoliticaPrivacidad.jsx'
 import Boletines from './pages/Boletines.jsx'
 import Herramientas from './pages/Herramientas.jsx'
-import Alfabeto from './pages/Alfabeto.jsx'
+import AlfabetoFonetico from './pages/AlfabetoFonetico.jsx'
 import CodigoQ from './pages/CodigoQ.jsx'
 import ConvertidorFrecuencia from './pages/ConvertidorFrecuencia.jsx'
 import Dipolo from './pages/Dipolo.jsx'
-import Espectro from './pages/Espectro.jsx'
-import Indicativos from './pages/Indicativos.jsx'
+import EspectroRadioelectrico from './pages/EspectroRadioelectrico.jsx'
+import IndicativosPais from './pages/IndicativosPais.jsx'
 import JPole from './pages/JPole.jsx'
 import SlimJim from './pages/SlimJim.jsx'
 import Flowerpot from './pages/Flowerpot.jsx'
@@ -51,7 +51,8 @@ import CanalesMarinos from './pages/CanalesMarinos.jsx'
 import RadioComercial from './pages/RadioComercial.jsx'
 import TvAbierta from './pages/TvAbierta.jsx'
 import Emergencia from './pages/Emergencia.jsx'
-import Buscador from './pages/Buscador.jsx'
+import BuscadorLicencias from './pages/BuscadorLicencias.jsx'
+import TonosCtcssDcs from './pages/TonosCtcssDcs.jsx'
 import { HERRAMIENTA_LINKS } from './lib/herramientas.js'
 import { REDIRECCIONES } from './lib/redirecciones.js'
 
@@ -82,12 +83,16 @@ export const AppLayout = () => {
             <Route path="/terminos" element={<Terminos />} />
             <Route path="/privacidad" element={<PoliticaPrivacidad />} />
             <Route path="/herramientas" element={<Herramientas />} />
-            <Route path="/buscador" element={<Buscador />} />
+            <Route path="/buscador" element={<BuscadorLicencias />} />
             <Route
               path="/herramientas/alfabeto-fonetico"
-              element={<Alfabeto />}
+              element={<AlfabetoFonetico />}
             />
             <Route path="/herramientas/codigos-q" element={<CodigoQ />} />
+            <Route
+              path="/herramientas/tonos-ctcss-dcs"
+              element={<TonosCtcssDcs />}
+            />
             <Route
               path="/convertidor/frecuencia"
               element={<ConvertidorFrecuencia />}
@@ -95,9 +100,12 @@ export const AppLayout = () => {
             <Route path="/calculadoras/dipolo" element={<Dipolo />} />
             <Route
               path="/herramientas/espectro-radioelectrico"
-              element={<Espectro />}
+              element={<EspectroRadioelectrico />}
             />
-            <Route path="/herramientas/indicativos" element={<Indicativos />} />
+            <Route
+              path="/herramientas/indicativos"
+              element={<IndicativosPais />}
+            />
             <Route path="/calculadoras/j-pole" element={<JPole />} />
             <Route path="/calculadoras/slim-jim" element={<SlimJim />} />
             <Route path="/calculadoras/flowerpot" element={<Flowerpot />} />
@@ -131,13 +139,22 @@ export const AppLayout = () => {
             <Route path="/calculadoras/yagi" element={<Yagi />} />
             <Route path="/calculadoras/moxon" element={<Moxon />} />
             <Route path="/calculadoras/quad" element={<Quad />} />
-            <Route path="/choque-coaxial" element={<ChoqueCoaxial />} />
-            <Route path="/bobina" element={<Bobina />} />
-            <Route path="/trampas" element={<Trampas />} />
-            <Route path="/linea-q" element={<LineaQ />} />
-            <Route path="/gamma-hairpin" element={<GammaHairpin />} />
-            <Route path="/perdida-linea" element={<PerdidaLinea />} />
-            <Route path="/nvis" element={<Nvis />} />
+            <Route
+              path="/calculadoras/choque-coaxial"
+              element={<ChoqueCoaxial />}
+            />
+            <Route path="/calculadoras/bobina" element={<Bobina />} />
+            <Route path="/calculadoras/trampas" element={<Trampas />} />
+            <Route path="/calculadoras/linea-q" element={<LineaQ />} />
+            <Route
+              path="/calculadoras/gamma-hairpin"
+              element={<GammaHairpin />}
+            />
+            <Route
+              path="/calculadoras/perdida-linea"
+              element={<PerdidaLinea />}
+            />
+            <Route path="/calculadoras/nvis" element={<Nvis />} />
             <Route
               path="/frecuencias/banda-ciudadana"
               element={<BandaCiudadana />}

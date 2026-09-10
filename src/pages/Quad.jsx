@@ -181,7 +181,7 @@ const Quad = () => {
 
   return (
     <CalculadoraLayout
-      titulo="Cuadro cúbico (quad)"
+      titulo="Cuadro Cúbico (Quad)"
       intro="Perímetros de reflector, radiador y director, y el espaciado típico de 0,20 λ."
     >
       <Articulo titulo="Loops en fase">

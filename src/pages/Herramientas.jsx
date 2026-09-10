@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { HERRAMIENTA_GRUPOS_PUBLICOS } from '../lib/herramientas.js'
+import { HERRAMIENTA_GRUPOS_PAGINA } from '../lib/herramientas.js'
 
 const Herramientas = () => {
   return (
@@ -15,9 +15,9 @@ const Herramientas = () => {
         </p>
       </header>
       <div className="space-y-8">
-        {HERRAMIENTA_GRUPOS_PUBLICOS.map(({ title, links }) => (
+        {HERRAMIENTA_GRUPOS_PAGINA.map(({ title, links }) => (
           <section key={title} className="space-y-3">
-            <h2 className="text-lg font-serif font-semibold text-stone-900 dark:text-white">
+            <h2 className="text-xl font-serif font-semibold tracking-tight text-stone-900 dark:text-white">
               {title}
             </h2>
             <ul className="grid gap-3 sm:grid-cols-2">

@@ -15,7 +15,7 @@ import {
 const RadioComercial = () => {
   return (
     <section className="my-16 space-y-8">
-      <EncabezadoReferencia titulo="Frecuencias de radio comercial">
+      <EncabezadoReferencia titulo="Frecuencias de Radio Comercial">
         Bandas de radiodifusión sonora en Chile: ondas medias (AM), FM y las
         bandas internacionales de onda corta. La emisora concreta de cada ciudad
         la asigna SUBTEL y cambia con el tiempo.

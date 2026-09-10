@@ -262,7 +262,7 @@ const VerticalCuartoOnda = () => {
 
   return (
     <CalculadoraLayout
-      titulo="Vertical λ/4 con radiales"
+      titulo="Vertical λ/4 con Radiales"
       intro="Largo del radiador y de los radiales, y la diferencia entre radiales elevados y enterrados."
     >
       <Articulo titulo="Elevados vs enterrados">

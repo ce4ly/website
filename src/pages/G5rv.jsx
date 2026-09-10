@@ -376,7 +376,7 @@ const G5RV = () => {
 
   return (
     <CalculadoraLayout
-      titulo="G5RV y Doble Zepp extendida"
+      titulo="G5RV y Doble Zepp Extendida"
       intro="Largos del flattop y de la línea de escalera: ahí es donde más se equivoca la gente."
     >
       <Articulo titulo="G5RV clásica">

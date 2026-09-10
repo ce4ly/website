@@ -148,7 +148,7 @@ const LineaQ = () => {
 
   return (
     <CalculadoraLayout
-      titulo="Línea Q (λ/4 de adaptación)"
+      titulo="Línea Q (λ/4 de Adaptación)"
       intro="Tramo de cuarto de onda cuya impedancia es la media geométrica de las dos que quiere unir. VF según el cable."
     >
       <Articulo titulo="Transformador de cuarto de onda">
