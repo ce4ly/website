@@ -1,3 +1,4 @@
+import { jsonLdOrganization } from '../lib/club.js'
 import {
   faFacebook,
   faInstagram,
@@ -9,6 +10,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 const Inicio = () => {
   return (
     <section className="space-y-4 items-center">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(jsonLdOrganization())
+        }}
+      />
       <img
         src="/banner.jpg"
         className="rounded-b-lg border border-1 border-t-0 border-stone-400/60 shadow shadow-lg shadow-stone-600"
@@ -38,11 +45,7 @@ const Inicio = () => {
             </a>
           </li>
           <li>
-            <a
-              href="https://www.qrz.com/db/ce4ly"
-              target="_blank"
-              title="QRZ"
-            >
+            <a href="https://www.qrz.com/db/ce4ly" target="_blank" title="QRZ">
               <FontAwesomeIcon icon={faSatelliteDish} size="3x" />
             </a>
           </li>
@@ -58,9 +61,7 @@ const Inicio = () => {
           </li>
         </ul>
         <div className="hidden w-full flex-col items-center justify-center bg-blue-950 p-4 text-center text-white shadow shadow-lg shadow-stone-600">
-          <h2 className="font-black font-serif mb-4">
-            Nuestros Repetidores:
-          </h2>
+          <h2 className="font-black font-serif mb-4">Nuestros Repetidores:</h2>
           <p className="font-mono">146,380 MHz - t67.0 - +0.600</p>
           <p className="font-mono">433,100 MHz - t67.0 - +5.000</p>
         </div>

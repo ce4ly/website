@@ -54,25 +54,23 @@ import Emergencia from './pages/Emergencia.jsx'
 import BuscadorLicencias from './pages/BuscadorLicencias.jsx'
 import TonosCtcssDcs from './pages/TonosCtcssDcs.jsx'
 import Ca5nfs from './pages/Ca5nfs.jsx'
-import { HERRAMIENTA_LINKS } from './lib/herramientas.js'
+import Locator from './pages/Locator.jsx'
+import Horizonte from './pages/Horizonte.jsx'
+import Morse from './pages/Morse.jsx'
+import Electronica from './pages/Electronica.jsx'
+import HiloLargo from './pages/HiloLargo.jsx'
+import Discone from './pages/Discone.jsx'
+import Reloj from './pages/Reloj.jsx'
+import DocumentHead from './components/DocumentHead.jsx'
+import { RUTAS_PRERENDER } from './lib/tools-catalog.js'
 import { REDIRECCIONES } from './lib/redirecciones.js'
 
-export const PRERENDER_PATHS = [
-  '/',
-  '/acerca',
-  '/ExDirectorio',
-  '/boletines',
-  '/contacto',
-  '/terminos',
-  '/privacidad',
-  '/herramientas',
-  '/ca5nfs',
-  ...HERRAMIENTA_LINKS.map(link => link.to)
-]
+export const PRERENDER_PATHS = RUTAS_PRERENDER
 
 export const AppLayout = () => {
   return (
     <div className="flex min-h-screen flex-col">
+      <DocumentHead />
       <Header />
       <main className="flex-1">
         <div className="mx-auto max-w-5xl px-4 sm:px-6">
@@ -168,6 +166,13 @@ export const AppLayout = () => {
             />
             <Route path="/frecuencias/tv-abierta" element={<TvAbierta />} />
             <Route path="/frecuencias/emergencia" element={<Emergencia />} />
+            <Route path="/herramientas/locator" element={<Locator />} />
+            <Route path="/herramientas/morse" element={<Morse />} />
+            <Route path="/herramientas/electronica" element={<Electronica />} />
+            <Route path="/herramientas/reloj" element={<Reloj />} />
+            <Route path="/calculadoras/horizonte" element={<Horizonte />} />
+            <Route path="/calculadoras/hilo-largo" element={<HiloLargo />} />
+            <Route path="/calculadoras/discone" element={<Discone />} />
             <Route path="/ca5nfs" element={<Ca5nfs />} />
             {REDIRECCIONES.map(({ from, to }) => (
               <Route

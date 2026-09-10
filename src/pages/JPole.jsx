@@ -1,4 +1,6 @@
 import { useState } from 'react'
+import PresetsRepetidoras from '../components/PresetsRepetidoras.jsx'
+import { formatearFrecuenciaMhz } from '../lib/repetidoras.js'
 
 const FACTOR_VELOCIDAD = 0.95
 
@@ -284,6 +286,11 @@ const JPole = () => {
               value={frecuencia}
               onChange={e => setFrecuencia(e.target.value)}
               className={inputClass}
+            />
+            <PresetsRepetidoras
+              onSelect={r =>
+                setFrecuencia(formatearFrecuenciaMhz(r.frecuenciaMhz))
+              }
             />
           </div>
         </div>

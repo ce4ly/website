@@ -19,6 +19,8 @@ import {
   parseNumero,
   vueltasParaInductancia
 } from '../lib/calculadoras.js'
+import PresetsRepetidoras from '../components/PresetsRepetidoras.jsx'
+import { formatearFrecuenciaMhz } from '../lib/repetidoras.js'
 
 const CincoOctavosDiagrama = () => {
   return (
@@ -277,6 +279,11 @@ const CincoOctavos = () => {
             placeholder="Ej: 146,380"
             value={frecuencia}
             onChange={e => setFrecuencia(e.target.value)}
+          />
+          <PresetsRepetidoras
+            onSelect={r =>
+              setFrecuencia(formatearFrecuenciaMhz(r.frecuenciaMhz))
+            }
           />
         </div>
         <div>

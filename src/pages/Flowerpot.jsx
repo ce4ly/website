@@ -1,5 +1,7 @@
 import { useState } from 'react'
 import { Cota, PieDiagrama } from '../components/CalculadoraLayout.jsx'
+import PresetsRepetidoras from '../components/PresetsRepetidoras.jsx'
+import { formatearFrecuenciaMhz } from '../lib/repetidoras.js'
 import {
   formatearLongitud,
   formatearNumero,
@@ -316,6 +318,11 @@ const Flowerpot = () => {
               value={frecuencia}
               onChange={e => setFrecuencia(e.target.value)}
               className={inputClass}
+            />
+            <PresetsRepetidoras
+              onSelect={r =>
+                setFrecuencia(formatearFrecuenciaMhz(r.frecuenciaMhz))
+              }
             />
           </div>
         </div>

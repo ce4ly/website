@@ -18,6 +18,8 @@ import {
   labelClass,
   parseNumero
 } from '../lib/calculadoras.js'
+import PresetsRepetidoras from '../components/PresetsRepetidoras.jsx'
+import { formatearFrecuenciaMhz } from '../lib/repetidoras.js'
 
 const ColinealDiagrama = () => {
   return (
@@ -219,6 +221,11 @@ const Colineal = () => {
             placeholder="Ej: 146,380"
             value={frecuencia}
             onChange={e => setFrecuencia(e.target.value)}
+          />
+          <PresetsRepetidoras
+            onSelect={r =>
+              setFrecuencia(formatearFrecuenciaMhz(r.frecuenciaMhz))
+            }
           />
         </div>
         <div>

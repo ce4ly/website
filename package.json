@@ -8,6 +8,8 @@
     "build": "vite build && vite build --ssr src/entry-server.jsx --outDir dist/server && node scripts/prerender.js",
     "lint": "eslint .",
     "format": "prettier --write .",
+    "test": "vitest run",
+    "test:watch": "vitest",
     "preview": "vite preview",
     "start": "node server/prod-server.js",
     "deploy": "npm run build && rsync -avz --delete -e ssh dist/ ce4ly:/var/www/www.ce4ly.cl/"
@@ -16,11 +18,11 @@
     "@fontsource/ibm-plex-mono": "^5.2.7",
     "@fontsource/ibm-plex-sans": "^5.2.8",
     "@fontsource/ibm-plex-serif": "^5.2.7",
-    "@tailwindcss/vite": "^4.2.2",
+    "@tailwindcss/vite": "^4.3.3",
     "react": "^19.2.4",
     "react-dom": "^19.2.4",
     "react-router-dom": "^7.13.2",
-    "tailwindcss": "^4.2.2"
+    "tailwindcss": "^4.3.3"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
@@ -36,7 +38,8 @@
     "eslint-plugin-prettier": "^5.5.5",
     "globals": "^17.4.0",
     "prettier": "^3.8.1",
-    "vite": "^8.0.2"
+    "vite": "^8.0.2",
+    "vitest": "5.0.0"
   },
   "overrides": {
     "vite": "^8.0.2"

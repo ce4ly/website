@@ -9,6 +9,8 @@ import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { handleContactPost } from './mailgun-contact.js'
 import { destinoRedireccion } from '../src/lib/redirecciones.js'
+import { getSolar } from './solar.js'
+import { robotsTxt, sitemapXml } from '../src/lib/meta.js'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
@@ -50,6 +52,7 @@ const MIME = {
   '.woff2': 'font/woff2',
   '.woff': 'font/woff',
   '.txt': 'text/plain; charset=utf-8',
+  '.xml': 'application/xml; charset=utf-8',
   '.webmanifest': 'application/manifest+json'
 }
 
@@ -126,6 +129,28 @@ async function serveStatic(req, res) {
 
   if (pathname === '/api/contact.php') {
     await handleApiContact(req, res)
+    return
+  }
+
+  if (pathname === '/api/solar.json' || pathname === '/api/solar.php') {
+    const data = await getSolar()
+    res.writeHead(200, {
+      'Content-Type': 'application/json; charset=utf-8',
+      'Cache-Control': 'public, max-age=1800'
+    })
+    res.end(JSON.stringify(data))
+    return
+  }
+
+  if (pathname === '/sitemap.xml') {
+    res.writeHead(200, { 'Content-Type': 'application/xml; charset=utf-8' })
+    res.end(sitemapXml())
+    return
+  }
+
+  if (pathname === '/robots.txt') {
+    res.writeHead(200, { 'Content-Type': 'text/plain; charset=utf-8' })
+    res.end(robotsTxt())
     return
   }
 
