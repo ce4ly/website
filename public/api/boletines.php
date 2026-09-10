@@ -1,6 +1,6 @@
 <?php
 /**
- * Reexpone el RSS de SoundCloud en /boletines.xml.
+ * Reexpone el RSS de SoundCloud (también en /feedBoletines.php).
  * Caché de 60 minutos; si la fuente falla, última copia buena; si no hay, 503.
  */
 

@@ -5,6 +5,7 @@ import { respondContact } from './server/contacto-http.js'
 import { getBoletinesRss } from './server/boletines-rss.js'
 import { getSolar } from './server/solar.js'
 import { robotsTxt, sitemapXml } from './src/lib/meta.js'
+import { FEED_BOLETINES } from './src/lib/rss.js'
 
 function send(res, status, type, body) {
   res.statusCode = status
@@ -26,7 +27,13 @@ function contactApiPlugin(env) {
           send(res, 200, 'text/plain; charset=utf-8', robotsTxt())
           return
         }
-        if (pathname === '/boletines.xml' && req.method === 'GET') {
+        if (
+          (pathname === FEED_BOLETINES ||
+            pathname === '/api/boletines.php' ||
+            pathname === '/boletines.xml' ||
+            pathname === '/feedBoletines.xml') &&
+          req.method === 'GET'
+        ) {
           const feed = await getBoletinesRss(env)
           if (!feed.body) {
             send(res, 503, 'text/plain; charset=utf-8', 'Feed no disponible.')

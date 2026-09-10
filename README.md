@@ -38,7 +38,7 @@ real.
 ## Boletines
 
 Con `SOUNDCLOUD_USER_ID` en `.env`, el build escribe `dist/api/boletines.local.php`
-y `/boletines.xml` reexpone el feed de SoundCloud (caché de 60 minutos; si la
+y `/feedBoletines.php` reexpone el feed de SoundCloud (caché de 60 minutos; si la
 fuente falla, la última copia buena; si no hay ninguna, 503). `/boletines` lista
 esos episodios. Si la variable no está, nada se rompe: el feed responde 503 y
 la página sigue enlazando el perfil público.

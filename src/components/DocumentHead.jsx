@@ -6,6 +6,7 @@ import {
   SITE_URL
 } from '../lib/club.js'
 import { metaDeRuta } from '../lib/meta.js'
+import { FEED_BOLETINES } from '../lib/rss.js'
 
 const upsertMeta = (selector, attrs) => {
   let el = document.head.querySelector(selector)
@@ -100,7 +101,7 @@ const DocumentHead = () => {
       rssEl.setAttribute('rel', 'alternate')
       rssEl.setAttribute('type', 'application/rss+xml')
       rssEl.setAttribute('title', 'Boletines del Radio Club Lircay')
-      rssEl.setAttribute('href', `${SITE_URL}/boletines.xml`)
+      rssEl.setAttribute('href', `${SITE_URL}${FEED_BOLETINES}`)
     } else if (rssEl) {
       rssEl.remove()
     }

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { SITE_URL } from '../lib/club.js'
-import { formatearFechaRss, parsearFeedRss } from '../lib/rss.js'
+import { FEED_BOLETINES, formatearFechaRss, parsearFeedRss } from '../lib/rss.js'
 import { SOUNDCLOUD_RADIO_CLUB_PROFILE } from '../lib/soundcloud.js'
 import SoundCloudSection from '../components/SoundCloudSection.jsx'
 
@@ -24,7 +24,7 @@ const Boletines = () => {
       }
       return xml
     }
-    leer('/boletines.xml')
+    leer(FEED_BOLETINES)
       .catch(() => leer('/api/boletines.php'))
       .then(xml => {
         if (cancelado) return
@@ -49,7 +49,7 @@ const Boletines = () => {
         <p className="mx-auto max-w-3xl text-justify text-sm text-stone-700 sm:text-base dark:text-indigo-100">
           Los boletines del Radio Club Lircay se publican en SoundCloud. Puede
           escucharlos aquí o{' '}
-          <a href={`${SITE_URL}/boletines.xml`} className={enlaceClass}>
+          <a href={`${SITE_URL}${FEED_BOLETINES}`} className={enlaceClass}>
             suscribirse al feed RSS
           </a>{' '}
           del club.

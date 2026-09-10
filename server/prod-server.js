@@ -12,6 +12,7 @@ import { getBoletinesRss } from './boletines-rss.js'
 import { destinoRedireccion } from '../src/lib/redirecciones.js'
 import { getSolar } from './solar.js'
 import { robotsTxt, sitemapXml } from '../src/lib/meta.js'
+import { FEED_BOLETINES } from '../src/lib/rss.js'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
@@ -90,7 +91,12 @@ async function serveStatic(req, res) {
     return
   }
 
-  if (pathname === '/boletines.xml') {
+  if (
+    pathname === FEED_BOLETINES ||
+    pathname === '/api/boletines.php' ||
+    pathname === '/boletines.xml' ||
+    pathname === '/feedBoletines.xml'
+  ) {
     const feed = await getBoletinesRss(process.env)
     if (!feed.body) {
       res.writeHead(503, { 'Content-Type': 'text/plain; charset=utf-8' })

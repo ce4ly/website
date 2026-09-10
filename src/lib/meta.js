@@ -1,4 +1,5 @@
 import { CLUB, SITE_URL } from './club.js'
+import { FEED_BOLETINES } from './rss.js'
 import { PAGINAS_SITEMAP, paginaPorRuta } from './tools-catalog.js'
 
 const TITULO_SITIO = 'Radio Club Lircay CE4LY'
@@ -94,7 +95,7 @@ export const metaTagsHtml = path => {
 
 const extraHeadHtml = path => {
   if (path === '/boletines') {
-    return `<link rel="alternate" type="application/rss+xml" title="Boletines del Radio Club Lircay" href="${SITE_URL}/boletines.xml" />`
+    return `<link rel="alternate" type="application/rss+xml" title="Boletines del Radio Club Lircay" href="${SITE_URL}${FEED_BOLETINES}" />`
   }
   return ''
 }

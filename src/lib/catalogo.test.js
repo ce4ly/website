@@ -5,8 +5,9 @@ import {
   RUTAS_OFFLINE,
   TOOLS
 } from './tools-catalog.js'
-import { canonicalDe, metaDeRuta, robotsTxt, sitemapXml } from './meta.js'
+import { canonicalDe, metaDeRuta, metaTagsHtml, robotsTxt, sitemapXml } from './meta.js'
 import { NAV_PRINCIPAL } from './nav.js'
+import { FEED_BOLETINES } from './rss.js'
 
 describe('catálogo y metadatos', () => {
   it('cada herramienta tiene slug, path, title, description y section', () => {
@@ -36,6 +37,14 @@ describe('catálogo y metadatos', () => {
     expect(xml).toContain('https://www.ce4ly.cl/emergencias')
     expect(xml).not.toContain('https://www.ce4ly.cl/404')
     expect(robotsTxt()).toContain('Sitemap: https://www.ce4ly.cl/sitemap.xml')
+  })
+
+  it('el RSS de boletines es un archivo PHP real', () => {
+    const head = metaTagsHtml('/boletines')
+    expect(FEED_BOLETINES).toBe('/feedBoletines.php')
+    expect(head).toContain(FEED_BOLETINES)
+    expect(head).not.toContain('/boletines.xml')
+    expect(head).not.toContain('/feedBoletines.xml')
   })
 
   it('el precache offline cubre cursos y emergencias, no contacto ni el reloj', () => {

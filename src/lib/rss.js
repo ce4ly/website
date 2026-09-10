@@ -1,4 +1,4 @@
-export const FEED_BOLETINES = '/feedBoletines.xml'
+export const FEED_BOLETINES = '/feedBoletines.php'
 
 const decodeXml = texto =>
   String(texto)

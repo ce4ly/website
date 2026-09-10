@@ -16,6 +16,7 @@ import {
   RUTAS_PRERENDER
 } from '../src/lib/tools-catalog.js'
 import { metaTagsHtml, robotsTxt, sitemapXml } from '../src/lib/meta.js'
+import { FEED_BOLETINES } from '../src/lib/rss.js'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 const rootDir = join(__dirname, '..')
@@ -86,8 +87,10 @@ const htaccess = `Options -MultiViews
 	RewriteEngine on
 	RewriteBase /
 
-	# /boletines.xml no debe negociarse como el directorio /boletines/
-	RewriteRule ^boletines\\.xml$ api/boletines.php [END]
+	# El VPS sirve index.html para rutas que no son archivo real; el feed
+	# público es feedBoletines.php. Estas reglas quedan por si AllowOverride pasa.
+	RewriteRule ^feedBoletines\\.xml$ api/boletines.php [L]
+	RewriteRule ^boletines\\.xml$ api/boletines.php [L]
 
 	# Redirecciones permanentes de rutas antiguas
 ${REDIRECCIONES.map(
@@ -170,11 +173,11 @@ const PRECACHE = [
   ])
 ]
 
-const sw = `const CACHE = 'ce4ly-offline-v3'
+const sw = `const CACHE = 'ce4ly-offline-v4'
 const PRECACHE = ${JSON.stringify(PRECACHE)}
 const RUTA_PROPAGACION = ${JSON.stringify(RUTA_PROPAGACION)}
 const API_VIVA = ['/api/solar.json', '/api/solar.php', '/api/contact.php', '/api/boletines.php']
-const RUTAS_VIVAS = ['/contacto', '/boletines.xml']
+const RUTAS_VIVAS = ['/contacto', ${JSON.stringify(FEED_BOLETINES)}]
 
 const esVivo = pathname =>
   pathname === RUTA_PROPAGACION ||

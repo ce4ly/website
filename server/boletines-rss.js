@@ -34,7 +34,7 @@ export async function getBoletinesRss(
     cache = { xml, fetchedAt: ahora }
     return { status: 200, body: xml }
   } catch (e) {
-    console.error('[boletines.xml]', e)
+    console.error('[feedBoletines]', e)
     if (cache.xml) {
       return { status: 200, body: cache.xml, stale: true }
     }
