@@ -8,6 +8,7 @@ import fs from 'node:fs/promises'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { handleContactPost } from './mailgun-contact.js'
+import { destinoRedireccion } from '../src/lib/redirecciones.js'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
@@ -114,6 +115,13 @@ async function serveStatic(req, res) {
   let pathname = url.pathname
   if (pathname.length > 1 && pathname.endsWith('/')) {
     pathname = pathname.slice(0, -1)
+  }
+
+  const redir = destinoRedireccion(pathname)
+  if (redir) {
+    res.writeHead(301, { Location: redir })
+    res.end()
+    return
   }
 
   if (pathname === '/api/contact.php') {

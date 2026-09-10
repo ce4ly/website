@@ -1,5 +1,37 @@
 <IfModule mod_rewrite.c>
 	RewriteEngine on
+
+	# Redirecciones permanentes de rutas antiguas
+	RewriteRule ^espectro/?$ /herramientas/espectro-radioelectrico [R=301,L]
+	RewriteRule ^alfabeto/?$ /herramientas/alfabeto-fonetico [R=301,L]
+	RewriteRule ^codigo-q/?$ /herramientas/codigos-q [R=301,L]
+	RewriteRule ^indicativos/?$ /herramientas/indicativos [R=301,L]
+	RewriteRule ^convertidor-potencia/?$ /convertidor/potencia [R=301,L]
+	RewriteRule ^convertidor-frecuencia/?$ /convertidor/frecuencia [R=301,L]
+	RewriteRule ^banda-ciudadana/?$ /frecuencias/banda-ciudadana [R=301,L]
+	RewriteRule ^canales-marinos/?$ /frecuencias/marinas [R=301,L]
+	RewriteRule ^radio-comercial/?$ /frecuencias/radio-comercial [R=301,L]
+	RewriteRule ^tv-abierta/?$ /frecuencias/tv-abierta [R=301,L]
+	RewriteRule ^emergencia/?$ /frecuencias/emergencia [R=301,L]
+	RewriteRule ^dipolo/?$ /calculadoras/dipolo [R=301,L]
+	RewriteRule ^v-invertida/?$ /calculadoras/v-invertida [R=301,L]
+	RewriteRule ^efhw/?$ /calculadoras/efhw [R=301,L]
+	RewriteRule ^vertical-cuarto-onda/?$ /calculadoras/vertical-cuarto-onda [R=301,L]
+	RewriteRule ^loop-delta/?$ /calculadoras/loop-delta [R=301,L]
+	RewriteRule ^ocfd/?$ /calculadoras/ocfd [R=301,L]
+	RewriteRule ^g5rv/?$ /calculadoras/g5rv [R=301,L]
+	RewriteRule ^loop-magnetico/?$ /calculadoras/loop-magnetico [R=301,L]
+	RewriteRule ^j-pole/?$ /calculadoras/j-pole [R=301,L]
+	RewriteRule ^slim-jim/?$ /calculadoras/slim-jim [R=301,L]
+	RewriteRule ^flowerpot/?$ /calculadoras/flowerpot [R=301,L]
+	RewriteRule ^ground-plane/?$ /calculadoras/ground-plane [R=301,L]
+	RewriteRule ^cinco-octavos/?$ /calculadoras/cinco-octavos [R=301,L]
+	RewriteRule ^colineal/?$ /calculadoras/colineal [R=301,L]
+	RewriteRule ^turnstile/?$ /calculadoras/turnstile [R=301,L]
+	RewriteRule ^yagi/?$ /calculadoras/yagi [R=301,L]
+	RewriteRule ^moxon/?$ /calculadoras/moxon [R=301,L]
+	RewriteRule ^quad/?$ /calculadoras/quad [R=301,L]
+
 	RewriteCond %{REQUEST_FILENAME} -f [OR]
 	RewriteCond %{REQUEST_FILENAME} -d
 	RewriteRule ^ - [L]

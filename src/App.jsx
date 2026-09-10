@@ -1,4 +1,10 @@
-import { BrowserRouter, MemoryRouter, Routes, Route } from 'react-router-dom'
+import {
+  BrowserRouter,
+  MemoryRouter,
+  Navigate,
+  Routes,
+  Route
+} from 'react-router-dom'
 import Header from './components/Header.jsx'
 import Footer from './components/Footer.jsx'
 import Inicio from './pages/Inicio.jsx'
@@ -8,6 +14,46 @@ import ExDirectorio from './pages/ExDirectorio.jsx'
 import Terminos from './pages/Terminos.jsx'
 import PoliticaPrivacidad from './pages/PoliticaPrivacidad.jsx'
 import Boletines from './pages/Boletines.jsx'
+import Herramientas from './pages/Herramientas.jsx'
+import Alfabeto from './pages/Alfabeto.jsx'
+import CodigoQ from './pages/CodigoQ.jsx'
+import ConvertidorFrecuencia from './pages/ConvertidorFrecuencia.jsx'
+import Dipolo from './pages/Dipolo.jsx'
+import Espectro from './pages/Espectro.jsx'
+import Indicativos from './pages/Indicativos.jsx'
+import JPole from './pages/JPole.jsx'
+import SlimJim from './pages/SlimJim.jsx'
+import Flowerpot from './pages/Flowerpot.jsx'
+import ConvertidorPotencia from './pages/ConvertidorPotencia.jsx'
+import InvertedV from './pages/InvertedV.jsx'
+import Efhw from './pages/Efhw.jsx'
+import VerticalCuartoOnda from './pages/VerticalCuartoOnda.jsx'
+import LoopDelta from './pages/LoopDelta.jsx'
+import Ocfd from './pages/Ocfd.jsx'
+import G5rv from './pages/G5rv.jsx'
+import LoopMagnetico from './pages/LoopMagnetico.jsx'
+import GroundPlane from './pages/GroundPlane.jsx'
+import CincoOctavos from './pages/CincoOctavos.jsx'
+import Colineal from './pages/Colineal.jsx'
+import Turnstile from './pages/Turnstile.jsx'
+import Yagi from './pages/Yagi.jsx'
+import Moxon from './pages/Moxon.jsx'
+import Quad from './pages/Quad.jsx'
+import ChoqueCoaxial from './pages/ChoqueCoaxial.jsx'
+import Bobina from './pages/Bobina.jsx'
+import Trampas from './pages/Trampas.jsx'
+import LineaQ from './pages/LineaQ.jsx'
+import GammaHairpin from './pages/GammaHairpin.jsx'
+import PerdidaLinea from './pages/PerdidaLinea.jsx'
+import Nvis from './pages/Nvis.jsx'
+import BandaCiudadana from './pages/BandaCiudadana.jsx'
+import CanalesMarinos from './pages/CanalesMarinos.jsx'
+import RadioComercial from './pages/RadioComercial.jsx'
+import TvAbierta from './pages/TvAbierta.jsx'
+import Emergencia from './pages/Emergencia.jsx'
+import Buscador from './pages/Buscador.jsx'
+import { HERRAMIENTA_LINKS } from './lib/herramientas.js'
+import { REDIRECCIONES } from './lib/redirecciones.js'
 
 export const PRERENDER_PATHS = [
   '/',
@@ -16,7 +62,9 @@ export const PRERENDER_PATHS = [
   '/boletines',
   '/contacto',
   '/terminos',
-  '/privacidad'
+  '/privacidad',
+  '/herramientas',
+  ...HERRAMIENTA_LINKS.map(link => link.to)
 ]
 
 export const AppLayout = () => {
@@ -33,6 +81,81 @@ export const AppLayout = () => {
             <Route path="/contacto" element={<Contacto />} />
             <Route path="/terminos" element={<Terminos />} />
             <Route path="/privacidad" element={<PoliticaPrivacidad />} />
+            <Route path="/herramientas" element={<Herramientas />} />
+            <Route path="/buscador" element={<Buscador />} />
+            <Route
+              path="/herramientas/alfabeto-fonetico"
+              element={<Alfabeto />}
+            />
+            <Route path="/herramientas/codigos-q" element={<CodigoQ />} />
+            <Route
+              path="/convertidor/frecuencia"
+              element={<ConvertidorFrecuencia />}
+            />
+            <Route path="/calculadoras/dipolo" element={<Dipolo />} />
+            <Route
+              path="/herramientas/espectro-radioelectrico"
+              element={<Espectro />}
+            />
+            <Route path="/herramientas/indicativos" element={<Indicativos />} />
+            <Route path="/calculadoras/j-pole" element={<JPole />} />
+            <Route path="/calculadoras/slim-jim" element={<SlimJim />} />
+            <Route path="/calculadoras/flowerpot" element={<Flowerpot />} />
+            <Route
+              path="/convertidor/potencia"
+              element={<ConvertidorPotencia />}
+            />
+            <Route path="/calculadoras/v-invertida" element={<InvertedV />} />
+            <Route path="/calculadoras/efhw" element={<Efhw />} />
+            <Route
+              path="/calculadoras/vertical-cuarto-onda"
+              element={<VerticalCuartoOnda />}
+            />
+            <Route path="/calculadoras/loop-delta" element={<LoopDelta />} />
+            <Route path="/calculadoras/ocfd" element={<Ocfd />} />
+            <Route path="/calculadoras/g5rv" element={<G5rv />} />
+            <Route
+              path="/calculadoras/loop-magnetico"
+              element={<LoopMagnetico />}
+            />
+            <Route
+              path="/calculadoras/ground-plane"
+              element={<GroundPlane />}
+            />
+            <Route
+              path="/calculadoras/cinco-octavos"
+              element={<CincoOctavos />}
+            />
+            <Route path="/calculadoras/colineal" element={<Colineal />} />
+            <Route path="/calculadoras/turnstile" element={<Turnstile />} />
+            <Route path="/calculadoras/yagi" element={<Yagi />} />
+            <Route path="/calculadoras/moxon" element={<Moxon />} />
+            <Route path="/calculadoras/quad" element={<Quad />} />
+            <Route path="/choque-coaxial" element={<ChoqueCoaxial />} />
+            <Route path="/bobina" element={<Bobina />} />
+            <Route path="/trampas" element={<Trampas />} />
+            <Route path="/linea-q" element={<LineaQ />} />
+            <Route path="/gamma-hairpin" element={<GammaHairpin />} />
+            <Route path="/perdida-linea" element={<PerdidaLinea />} />
+            <Route path="/nvis" element={<Nvis />} />
+            <Route
+              path="/frecuencias/banda-ciudadana"
+              element={<BandaCiudadana />}
+            />
+            <Route path="/frecuencias/marinas" element={<CanalesMarinos />} />
+            <Route
+              path="/frecuencias/radio-comercial"
+              element={<RadioComercial />}
+            />
+            <Route path="/frecuencias/tv-abierta" element={<TvAbierta />} />
+            <Route path="/frecuencias/emergencia" element={<Emergencia />} />
+            {REDIRECCIONES.map(({ from, to }) => (
+              <Route
+                key={from}
+                path={from}
+                element={<Navigate to={to} replace />}
+              />
+            ))}
           </Routes>
         </div>
       </main>
