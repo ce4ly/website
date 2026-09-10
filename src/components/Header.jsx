@@ -6,21 +6,15 @@ import {
   HERRAMIENTA_GRUPOS_MENU,
   HERRAMIENTA_LINKS
 } from '../lib/herramientas.js'
-
-const navLinks = [
-  { to: '/', label: 'Inicio' },
-  { to: '/acerca', label: 'Acerca' },
-  { to: '/boletines', label: 'Boletines' },
-  { to: '/emergencias', label: 'Emergencias' },
-  { to: '/contacto', label: 'Contacto' }
-]
+import { NAV_PRINCIPAL } from '../lib/nav.js'
+import Icono from './Icono.jsx'
 
 const groupTitleClass =
   'px-3 pt-2 pb-1 text-xs font-semibold uppercase tracking-wide text-stone-500 dark:text-indigo-400'
 
 const navClass = ({ isActive }) =>
   [
-    'text-blue-950 transition-colors dark:text-indigo-200',
+    'inline-flex items-center gap-1 text-blue-950 transition-colors dark:text-indigo-200',
     'font-medium',
     isActive
       ? 'underline underline-offset-4'
@@ -29,7 +23,7 @@ const navClass = ({ isActive }) =>
 
 const mobileNavClass = ({ isActive }) =>
   [
-    'rounded-md px-3 py-2 text-amber-900 transition-colors dark:text-indigo-200',
+    'inline-flex items-center gap-2 rounded-md px-3 py-2 text-amber-900 transition-colors dark:text-indigo-200',
     isActive
       ? 'bg-stone-100 dark:bg-indigo-900/70 underline underline-offset-4'
       : 'hover:bg-stone-100 dark:hover:bg-indigo-900/70 hover:underline underline-offset-4'
@@ -46,10 +40,8 @@ const menuItemClass = ({ isActive }) =>
 const Header = () => {
   const [open, setOpen] = useState(false)
   const [toolsOpen, setToolsOpen] = useState(false)
-  const [mobileToolsOpen, setMobileToolsOpen] = useState(false)
   const location = useLocation()
   const menuId = useId()
-  const mobileMenuId = useId()
   const toolsWrapRef = useRef(null)
   const toolsLinkRef = useRef(null)
   const itemRefs = useRef([])
@@ -72,7 +64,6 @@ const Header = () => {
   useEffect(() => {
     closeTools()
     setOpen(false)
-    setMobileToolsOpen(false)
   }, [location.pathname])
 
   useEffect(() => {
@@ -157,15 +148,13 @@ const Header = () => {
           </div>
         </div>
         <nav
-          className="hidden items-center gap-3 text-sm lg:gap-4 md:flex"
+          className="hidden items-center gap-2.5 text-sm lg:gap-3 lg:flex"
           aria-label="Principal"
         >
-          {navLinks.map(({ to, label }) => (
-            <NavLink key={to} to={to} className={navClass}>
-              {label}
-            </NavLink>
-          ))}
+          {NAV_PRINCIPAL.map(item =>
+            item.to === '/herramientas' ? (
           <div
+            key={item.to}
             ref={toolsWrapRef}
             className="relative"
             onMouseEnter={() => setToolsOpen(true)}
@@ -188,7 +177,9 @@ const Header = () => {
                 }
               }}
             >
-              Herramientas
+              <Icono nombre={item.icono} />
+              {item.label}
+              <Icono nombre="chevron" className="size-3.5 shrink-0 opacity-70" />
             </NavLink>
             <div
               id={menuId}
@@ -224,14 +215,24 @@ const Header = () => {
                   ].join(' ')
                 }
               >
-                Todas las Herramientas
+                <span className="inline-flex items-center gap-2">
+                  <Icono nombre="herramientas" />
+                  Todas las Herramientas
+                </span>
               </NavLink>
             </div>
           </div>
+            ) : (
+              <NavLink key={item.to} to={item.to} className={navClass}>
+                <Icono nombre={item.icono} />
+                {item.label}
+              </NavLink>
+            )
+          )}
           <OfflineBadge />
           <ThemeSwitch />
         </nav>
-        <div className="flex items-center gap-2 md:hidden">
+        <div className="flex items-center gap-2 lg:hidden">
           <OfflineBadge />
           <ThemeSwitch />
           <button
@@ -242,74 +243,29 @@ const Header = () => {
             aria-controls="nav-movil"
             aria-label="Abrir menú de navegación"
           >
-            <span className="sr-only">Abrir menú</span>
-            <div className="flex flex-col items-center justify-center gap-1.5">
-              <span className="h-[2px] w-4 rounded bg-current" />
-              <span className="h-[2px] w-4 rounded bg-current" />
-            </div>
+            <span className="sr-only">{open ? 'Cerrar menú' : 'Abrir menú'}</span>
+            <Icono nombre={open ? 'cerrar' : 'menu'} className="size-5" />
           </button>
         </div>
       </div>
       <nav
         id="nav-movil"
         hidden={!open}
-        className="border-t border-stone-200 bg-white dark:border-indigo-900 dark:bg-indigo-950/95 md:hidden"
+        className="border-t border-stone-200 bg-white dark:border-indigo-900 dark:bg-indigo-950/95 lg:hidden"
         aria-label="Principal móvil"
       >
         <div className="mx-auto flex max-h-[70vh] max-w-5xl flex-col gap-1 overflow-y-auto px-4 py-3 text-sm">
-          {navLinks.map(({ to, label }) => (
+          {NAV_PRINCIPAL.map(item => (
             <NavLink
-              key={to}
-              to={to}
+              key={item.to}
+              to={item.to}
               onClick={() => setOpen(false)}
               className={mobileNavClass}
             >
-              {label}
+              <Icono nombre={item.icono} />
+              {item.label}
             </NavLink>
           ))}
-          <NavLink
-            to="/herramientas"
-            aria-expanded={mobileToolsOpen}
-            aria-controls={mobileMenuId}
-            className={mobileNavClass}
-            onClick={e => {
-              if (!mobileToolsOpen) {
-                e.preventDefault()
-                setMobileToolsOpen(true)
-              }
-            }}
-          >
-            Herramientas
-          </NavLink>
-          <div
-            id={mobileMenuId}
-            hidden={!mobileToolsOpen}
-            className="flex flex-col gap-1"
-          >
-            {HERRAMIENTA_GRUPOS_MENU.map(({ title, links }) => (
-              <div key={title} className="flex flex-col gap-1">
-                <p className={groupTitleClass}>{title}</p>
-                {links.map(({ to, label }) => (
-                  <NavLink
-                    key={to}
-                    to={to}
-                    onClick={() => setOpen(false)}
-                    className={mobileNavClass}
-                  >
-                    {label}
-                  </NavLink>
-                ))}
-              </div>
-            ))}
-            <NavLink
-              to="/herramientas"
-              end
-              onClick={() => setOpen(false)}
-              className={mobileNavClass}
-            >
-              Todas las Herramientas
-            </NavLink>
-          </div>
         </div>
       </nav>
     </header>

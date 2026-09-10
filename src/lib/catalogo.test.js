@@ -6,6 +6,7 @@ import {
   TOOLS
 } from './tools-catalog.js'
 import { canonicalDe, metaDeRuta, robotsTxt, sitemapXml } from './meta.js'
+import { NAV_PRINCIPAL } from './nav.js'
 
 describe('catálogo y metadatos', () => {
   it('cada herramienta tiene slug, path, title, description y section', () => {
@@ -44,6 +45,18 @@ describe('catálogo y metadatos', () => {
     expect(RUTAS_OFFLINE).toContain('/emergencias')
     expect(RUTAS_OFFLINE).not.toContain('/contacto')
     expect(RUTAS_OFFLINE).not.toContain(RUTA_PROPAGACION)
+  })
+
+  it('el menú va Inicio, Acerca, Boletines, Cursos, Herramientas, Emergencias, Contacto', () => {
+    expect(NAV_PRINCIPAL.map(i => i.label)).toEqual([
+      'Inicio',
+      'Acerca',
+      'Boletines',
+      'Cursos',
+      'Herramientas',
+      'Emergencias',
+      'Contacto'
+    ])
   })
 
   it('cursos y emergencias tienen título y descripción propios', () => {

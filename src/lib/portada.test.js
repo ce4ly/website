@@ -2,10 +2,10 @@ import { describe, expect, it } from 'vitest'
 import { BLOQUE_PORTADA } from './portada.js'
 
 describe('BLOQUE_PORTADA', () => {
-  it('apunta a herramientas y cursos, no a frecuencias de repetidora', () => {
-    const hrefs = BLOQUE_PORTADA.enlaces.map(e => e.href)
-    expect(hrefs).toContain('/herramientas')
-    expect(hrefs).toContain('/cursos')
-    expect(BLOQUE_PORTADA.texto.toLowerCase()).not.toMatch(/repetidor/)
+  it('tiene las frecuencias del club y sigue oculto mientras no haya repetidora', () => {
+    expect(BLOQUE_PORTADA.oculto).toBe(true)
+    expect(BLOQUE_PORTADA.titulo).toMatch(/Repetidores/)
+    expect(BLOQUE_PORTADA.lineas.join(' ')).toContain('146,380')
+    expect(BLOQUE_PORTADA.lineas.join(' ')).toContain('433,100')
   })
 })

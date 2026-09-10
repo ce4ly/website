@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faMoon, faSun } from '@fortawesome/free-solid-svg-icons'
+import Icono from './Icono.jsx'
 
 const STORAGE_KEY = 'theme'
 
@@ -33,11 +32,7 @@ const ThemeSwitch = () => {
         theme === 'light' ? 'Cambiar a tema oscuro' : 'Cambiar a tema claro'
       }
     >
-      {theme === 'light' ? (
-        <FontAwesomeIcon icon={faSun} className="size-4" />
-      ) : (
-        <FontAwesomeIcon icon={faMoon} className="size-4" />
-      )}
+      <Icono nombre={theme === 'light' ? 'sol' : 'luna'} className="size-4" />
     </button>
   )
 }

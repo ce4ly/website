@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom'
 import { jsonLdOrganization } from '../lib/club.js'
 import { BLOQUE_PORTADA } from '../lib/portada.js'
 import {
@@ -71,24 +70,19 @@ const Inicio = () => {
             </a>
           </li>
         </ul>
-        <div className="w-full max-w-2xl flex-col items-center justify-center bg-blue-950 p-6 text-center text-white shadow shadow-lg shadow-stone-600">
-          <h2 className="font-black font-serif mb-3 text-xl">
+        <div
+          className={`${
+            BLOQUE_PORTADA.oculto ? 'hidden' : 'flex'
+          } w-full max-w-2xl flex-col items-center justify-center bg-blue-950 p-4 text-center text-white shadow shadow-lg shadow-stone-600`}
+        >
+          <h2 className="font-black font-serif mb-4">
             {BLOQUE_PORTADA.titulo}
           </h2>
-          <p className="mb-5 text-sm sm:text-base text-white/90">
-            {BLOQUE_PORTADA.texto}
-          </p>
-          <div className="flex flex-wrap items-center justify-center gap-3">
-            {BLOQUE_PORTADA.enlaces.map(({ href, label }) => (
-              <Link
-                key={href}
-                to={href}
-                className="inline-flex rounded-lg bg-white px-4 py-2 text-sm font-semibold text-blue-950 no-underline transition-colors hover:bg-stone-100"
-              >
-                {label}
-              </Link>
-            ))}
-          </div>
+          {BLOQUE_PORTADA.lineas.map(linea => (
+            <p key={linea} className="font-mono">
+              {linea}
+            </p>
+          ))}
         </div>
         <p className="font-serif">Sitio web en constante actualización.</p>
       </div>
